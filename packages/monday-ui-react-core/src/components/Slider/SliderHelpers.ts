@@ -57,16 +57,21 @@ export function ensureDefaultValue(
   max: number,
   ranged: boolean
 ): number | number[] {
-  if (ranged && !Array.isArray(defaultValue)) {
-    return [min, max];
+  if (ranged) {
+    if (!Array.isArray(defaultValue) || (Array.isArray(defaultValue) && defaultValue.length !== 2)) {
+      return [min, max];
+    }
+    return [defaultValue[0] < min ? min : defaultValue[0], defaultValue[1] > max ? max : defaultValue[1]];
   }
-  if (defaultValue < min) {
+
+  const defaultValueNumber = defaultValue as number;
+  if (defaultValueNumber < min) {
     return min;
   }
-  if (defaultValue > max) {
+  if (defaultValueNumber > max) {
     return max;
   }
-  return defaultValue;
+  return defaultValueNumber;
 }
 
 export function ensureValueText(

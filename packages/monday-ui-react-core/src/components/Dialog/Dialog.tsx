@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import cx from "classnames";
-import React, { PureComponent, ReactElement } from "react";
+import React, { PureComponent, ReactElement, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { Manager, Modifier, Popper, Reference } from "react-popper";
 import { DialogPosition } from "../../constants/positions";
@@ -535,98 +535,100 @@ export default class Dialog extends PureComponent<DialogProps, DialogState> {
             );
           }}
         </Reference>
-        {createPortal(
-          <Popper
-            placement={position as unknown as PopperJS.Placement}
-            modifiers={[
-              {
-                name: "offset",
-                options: {
-                  offset: [moveBy.secondary, moveBy.main]
-                }
-              },
-              {
-                name: "zIndex",
-                enabled: true,
-                phase: "write",
-                fn({ state }) {
-                  if (zIndex) {
-                    state.styles.popper.zIndex = String(zIndex);
+        {
+          createPortal(
+            <Popper
+              placement={position as unknown as PopperJS.Placement}
+              modifiers={[
+                {
+                  name: "offset",
+                  options: {
+                    offset: [moveBy.secondary, moveBy.main]
                   }
-                  return state;
-                }
-              },
-              {
-                name: "rotator",
-                enabled: true,
-                phase: "write",
-                fn({ state }) {
-                  // eslint-disable-next-line no-param-reassign
-                  if (!state.styles.arrow) {
+                },
+                {
+                  name: "zIndex",
+                  enabled: true,
+                  phase: "write",
+                  fn({ state }) {
+                    if (zIndex) {
+                      state.styles.popper.zIndex = String(zIndex);
+                    }
                     return state;
                   }
-                  // const reg = new RegExp(
-                  //   /translate\(([0-9].*)px, ([0-9].*)px\)/
-                  // );
-                  // const transform = state.styles.arrow.transform;
-                  // const res = reg.exec(transform);
-                  // state.styles.popper.transformOrigin = `${100 -
-                  //   res[1]}% ${100 - res[2]}%`;
-                  state.styles.arrow.transform = `${state.styles.arrow.transform} rotate(45deg)`;
-                  return state;
+                },
+                {
+                  name: "rotator",
+                  enabled: true,
+                  phase: "write",
+                  fn({ state }) {
+                    // eslint-disable-next-line no-param-reassign
+                    if (!state.styles.arrow) {
+                      return state;
+                    }
+                    // const reg = new RegExp(
+                    //   /translate\(([0-9].*)px, ([0-9].*)px\)/
+                    // );
+                    // const transform = state.styles.arrow.transform;
+                    // const res = reg.exec(transform);
+                    // state.styles.popper.transformOrigin = `${100 -
+                    //   res[1]}% ${100 - res[2]}%`;
+                    state.styles.arrow.transform = `${state.styles.arrow.transform} rotate(45deg)`;
+                    return state;
+                  }
+                },
+                ...modifiers
+              ]}
+            >
+              {({ placement, style, ref, arrowProps, isReferenceHidden }) => {
+                if (!this.isShown() && placement) {
+                  return null;
                 }
-              },
-              ...modifiers
-            ]}
-          >
-            {({ placement, style, ref, arrowProps, isReferenceHidden }) => {
-              if (!this.isShown() && placement) {
-                return null;
-              }
 
-              if (hideWhenReferenceHidden && isReferenceHidden) {
-                const event = new CustomEvent("onReferenceHidden");
-                this.hideDialog(event, "onReferenceHidden");
-              }
+                if (hideWhenReferenceHidden && isReferenceHidden) {
+                  const event = new CustomEvent("onReferenceHidden");
+                  this.hideDialog(event, "onReferenceHidden");
+                }
 
-              return (
-                <DialogContent
-                  data-testid={overrideDataTestId}
-                  isReferenceHidden={hideWhenReferenceHidden && isReferenceHidden}
-                  onMouseEnter={this.onDialogEnter}
-                  onMouseLeave={this.onDialogLeave}
-                  disableOnClickOutside={disableOnClickOutside}
-                  onClickOutside={this.onClickOutside}
-                  onContextMenu={this.onContextMenu}
-                  onEsc={this.onEsc}
-                  animationType={animationTypeCalculated}
-                  position={placement}
-                  wrapperClassName={wrapperClassName}
-                  startingEdge={startingEdge}
-                  isOpen={this.isShown()}
-                  showDelay={showDelay}
-                  styleObject={style}
-                  ref={ref}
-                  onClick={this.onContentClick}
-                  hasTooltip={!!tooltip}
-                  containerSelector={containerSelector}
-                  disableContainerScroll={disableContainerScroll}
-                >
-                  {contentRendered}
-                  {tooltip && (
-                    <div
-                      style={arrowProps.style}
-                      ref={arrowProps.ref}
-                      className={cx(styles.arrow, tooltipClassName)}
-                      data-placement={placement}
-                    />
-                  )}
-                </DialogContent>
-              );
-            }}
-          </Popper>,
-          this.getContainer()
-        )}
+                return (
+                  <DialogContent
+                    data-testid={overrideDataTestId}
+                    isReferenceHidden={hideWhenReferenceHidden && isReferenceHidden}
+                    onMouseEnter={this.onDialogEnter}
+                    onMouseLeave={this.onDialogLeave}
+                    disableOnClickOutside={disableOnClickOutside}
+                    onClickOutside={this.onClickOutside}
+                    onContextMenu={this.onContextMenu}
+                    onEsc={this.onEsc}
+                    animationType={animationTypeCalculated}
+                    position={placement}
+                    wrapperClassName={wrapperClassName}
+                    startingEdge={startingEdge}
+                    isOpen={this.isShown()}
+                    showDelay={showDelay}
+                    styleObject={style}
+                    ref={ref}
+                    onClick={this.onContentClick}
+                    hasTooltip={!!tooltip}
+                    containerSelector={containerSelector}
+                    disableContainerScroll={disableContainerScroll}
+                  >
+                    {contentRendered}
+                    {tooltip && (
+                      <div
+                        style={arrowProps.style}
+                        ref={arrowProps.ref}
+                        className={cx(styles.arrow, tooltipClassName)}
+                        data-placement={placement}
+                      />
+                    )}
+                  </DialogContent>
+                );
+              }}
+            </Popper>,
+            this.getContainer()
+          ) as ReactNode
+        }
       </Manager>
     );
   }

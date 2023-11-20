@@ -52,13 +52,15 @@ export function useSliderActionsContextValue(
       if (newValue === "" || Number.isNaN(Number(newValue))) {
         return index === 1 ? max : min;
       }
-      if (newValue > max) {
+
+      const newValueNumber = newValue as number;
+      if (newValueNumber > max) {
         return max;
       }
-      if (newValue < min) {
+      if (newValueNumber < min) {
         return min;
       }
-      return newValue as number;
+      return newValueNumber;
     },
     [min, max]
   );
