@@ -17,6 +17,9 @@
     "build": {
       "dependsOn": [
         "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/packages/monday-ui-react-core/src/components/Icon/Icons/"
       ]
     }
   },
