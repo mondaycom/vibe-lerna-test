@@ -3,35 +3,23 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "test",
-          "build",
-          "eslint",
-          "stylelint",
-          "lint"
-        ]
+        "cacheableOperations": ["test", "build", "eslint", "stylelint", "lint"]
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "outputs": [
-        "{projectRoot}/packages/monday-ui-react-core/src/components/Icon/Icons/"
+        "{projectRoot}/packages/monday-ui-react-core/src/components/Icon/Icons/components",
+        "{projectRoot}/packages/monday-ui-react-core/src/components/Icon/Icons/index.ts"
       ]
     }
   },
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [],
-    "production": [
-      "default"
-    ]
+    "production": ["default"]
   }
 }
