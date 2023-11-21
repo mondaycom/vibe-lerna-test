@@ -3598,7 +3598,7 @@
     "@storybook/preview-api" "7.5.3"
     "@storybook/theming" "7.5.3"
 
-"@storybook/addon-toolbars@^6.5.9":
+"@storybook/addon-toolbars@^6.5.10":
   version "6.5.16"
   resolved "https://registry.npmjs.org/@storybook/addon-toolbars/-/addon-toolbars-6.5.16.tgz#9de04f9cc64b68d6cb680aa1c4fbf874e11afa32"
   integrity sha512-y3PuUKiwOWrAvqx1YdUvArg0UaAwmboXFeR2bkrowk1xcT+xnRO3rML4npFeUl26OQ1FzwxX/cw6nknREBBLEA==
