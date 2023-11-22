@@ -1,9 +1,17 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@storybook/**",
+      "**/@storybook",
+      "**/storybook/**",
+      "**/storybook"
+    ]
+  },
   "dependencies": {},
   "devDependencies": {
     "lerna": "^7.4.2"
