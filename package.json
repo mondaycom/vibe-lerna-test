@@ -4,12 +4,6 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "**/@storybook/**",
-      "**/@storybook",
-      "**/storybook/**",
-      "**/storybook"
     ]
   },
   "dependencies": {},
