@@ -7,7 +7,7 @@ export const Refable = React.forwardRef<
   React.PropsWithChildren<unknown & HTMLProps<any> & VibeComponentProps> & {
     children: ReactElement | ReactElement[] | string;
   }
-  // @ts-ignore React forwardRef type def doesn't seem to support multiple refs
+  //   @ts-expect-error React forwardRef type def doesn't seem to support multiple refs
 >(({ children, ...rest }, ref) => {
   return React.Children.map(children, child => {
     if (!React.isValidElement(child)) return null;

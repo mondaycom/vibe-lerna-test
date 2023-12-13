@@ -69,6 +69,18 @@ describe("Table", () => {
     });
   });
 
+  describe("TableRow", () => {
+    it("should render without a highlight state", () => {
+      const { getByRole } = render(<TableRow />);
+      expect(getByRole("row")).toHaveAttribute("aria-selected", "false");
+    });
+
+    it("should render with a highlight state", () => {
+      const { getByRole } = render(<TableRow highlighted />);
+      expect(getByRole("row")).toHaveAttribute("aria-selected", "true");
+    });
+  });
+
   describe("TableCellSkeleton", () => {
     it("should render with a specified type", () => {
       const { getByTestId } = render(<TableCellSkeleton type="long-text" />);
@@ -94,6 +106,23 @@ describe("Table", () => {
       const { getByRole } = render(
         <Table {...tableBoilerplate}>
           <TableBody></TableBody>
+        </Table>
+      );
+
+      const tableBodyElement = getByRole("rowgroup");
+      expect(tableBodyElement.textContent).toBe("Empty State");
+    });
+
+    it("Should render empty state in case <TableBody /> has empty array children", () => {
+      const { getByRole } = render(
+        <Table {...tableBoilerplate}>
+          <TableBody>
+            {[].map(item => (
+              <TableRow key={item.id}>
+                <TableCell>Table Cell</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       );
 

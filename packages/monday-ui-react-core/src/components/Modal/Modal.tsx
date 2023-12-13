@@ -187,7 +187,7 @@ const Modal: FC<ModalProps> & { width?: typeof ModalWidth } = ({
     document.body
   );
 
-  return ReactDOM.createPortal(dialog, document.body) as ReactElement;
+  return ReactDOM.createPortal(dialog, document.body);
 };
 
 export default withStaticProps(Modal, {
