@@ -3,13 +3,13 @@ import {
   Canvas,
   clearText,
   clickElement,
-  getByTestId,
+  delay,
   getByRole,
+  getByTestId,
   interactionSuite,
-  typeText,
-  delay
+  InteractionSuite,
+  typeText
 } from "../../../tests/interactions-utils";
-
 import { ComponentDefaultTestId } from "../../../tests/constants";
 import { resetFocus } from "../../../__tests__/interactions-helper";
 
@@ -84,6 +84,6 @@ async function cancelEditing(canvas: Canvas) {
   expect(textElement).toHaveTextContent(text);
 }
 
-export const overviewPlaySuite = interactionSuite({
+export const overviewPlaySuite: InteractionSuite = interactionSuite({
   tests: [changeModes, editAndChangeToValidText, clearInput, cancelEditing]
 });

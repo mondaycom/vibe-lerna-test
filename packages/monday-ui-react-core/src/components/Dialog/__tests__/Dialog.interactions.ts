@@ -1,14 +1,14 @@
-import { resetFocus } from "../../../__tests__/interactions-helper";
 import { expect } from "@storybook/jest";
 import { Screen } from "@testing-library/react";
+import { fireEvent, userEvent, waitFor } from "@storybook/testing-library";
 import {
-  CONTEXT_MENU_DIALOG,
   CLICK_OUTSIDE_DIALOG,
-  HIDE_TRIGGERS_CONTAINER,
-  CLICK_OUTSIDE_DIALOG_BUTTON
+  CLICK_OUTSIDE_DIALOG_BUTTON,
+  CONTEXT_MENU_DIALOG,
+  HIDE_TRIGGERS_CONTAINER
 } from "./DialogDataTestIds";
-import { Canvas, getByTestId, interactionSuite } from "../../../tests/interactions-utils";
-import { userEvent, fireEvent, waitFor } from "@storybook/testing-library";
+import { resetFocus } from "../../../__tests__/interactions-helper";
+import { Canvas, getByTestId, InteractionSuite, interactionSuite } from "../../../tests/interactions-utils";
 
 const isDialogHiddenAfterClickOutside = createTestIfDialogHiddenAfterTrigger(CLICK_OUTSIDE_DIALOG, () =>
   userEvent.click(getDialogContainer())
@@ -17,7 +17,7 @@ const isDialogHiddenAfterContextMenu = createTestIfDialogHiddenAfterTrigger(CONT
   fireEvent.contextMenu(getDialogContainer())
 );
 
-export const closeTriggersInteractionSuite = interactionSuite({
+export const closeTriggersInteractionSuite: InteractionSuite = interactionSuite({
   tests: [isDialogHiddenAfterClickOutside, isDialogHiddenAfterContextMenu],
   beforeAll: async canvas => {
     // From some reason we have an issue with rendering the dialogs according to the container selector in the initial mount, after clicking

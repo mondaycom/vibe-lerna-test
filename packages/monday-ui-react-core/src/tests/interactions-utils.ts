@@ -5,6 +5,14 @@ import { expect } from "@storybook/jest";
 
 export type Canvas = HTMLElement | BoundFunctions<typeof queries>;
 export type TestFunction = (canvas: Canvas, args: Record<string, any>) => unknown;
+export type InteractionSuite = ({
+  canvasElement,
+  args
+}: {
+  canvasElement: Screen;
+  args: Record<string, any>;
+}) => Promise<void>;
+
 export type Coordinates = { x: number; y: number };
 
 // Internal functions
@@ -74,6 +82,15 @@ function getWithin(canvasOrValidTestElement: HTMLElement | BoundFunctions<typeof
 // External constants
 export const NavigationCommand = NavigationCommandType;
 
+type InteractionSuiteOptions = {
+  beforeEach?: TestFunction;
+  beforeAll?: TestFunction;
+  skip?: boolean;
+  tests: Array<TestFunction>;
+  afterAll?: TestFunction;
+  afterEach?: TestFunction;
+};
+
 // External functions
 export const interactionSuite =
   ({
@@ -83,14 +100,13 @@ export const interactionSuite =
     tests,
     afterEach = null,
     afterAll = null
+  }: InteractionSuiteOptions): (({
+    canvasElement,
+    args
   }: {
-    beforeEach?: TestFunction;
-    beforeAll?: TestFunction;
-    skip?: boolean;
-    tests: Array<TestFunction>;
-    afterAll?: TestFunction;
-    afterEach?: TestFunction;
-  }): (({ canvasElement, args }: { canvasElement: Screen; args: Record<string, any> }) => Promise<void>) =>
+    canvasElement: Screen;
+    args: Record<string, any>;
+  }) => Promise<void>) =>
   async ({ canvasElement, args }) => {
     if (skip) return;
 
