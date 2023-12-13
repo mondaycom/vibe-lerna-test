@@ -70,6 +70,7 @@ const componentTemplate = responseListProps => {
         </SplitButton>
         <div
           className="responsive-lst-search"
+          // eslint-disable-next-line react/no-unknown-property
           responsiveListPlaceholder={
             <Search
               id="search-icon-inside"
