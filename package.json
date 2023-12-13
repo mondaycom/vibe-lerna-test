@@ -6,6 +6,11 @@
       "packages/*"
     ]
   },
+  "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "lint": "lerna run lint"
+  },
   "dependencies": {},
   "devDependencies": {
     "lerna": "^7.4.2"
