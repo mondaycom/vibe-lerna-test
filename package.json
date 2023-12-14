@@ -13,6 +13,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "lerna": "^7.4.2"
+    "lerna": "^7.4.2",
+    "syncpack": "^11.2.1"
   }
 }
