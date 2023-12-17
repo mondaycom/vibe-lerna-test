@@ -106,7 +106,7 @@ module.exports = () => {
         },
         {
           test: /\.css$/,
-          include: /node_modules/, // only include 3rd party libraries
+          include: [/node_modules/, /monday-ui-style/], // only include 3rd party libraries
           use: styleLoaders
         }
       ]
@@ -135,7 +135,7 @@ module.exports = () => {
             to: "assets/"
           },
           {
-            from: "node_modules/monday-ui-style/dist/index.min.css",
+            from: "../../node_modules/monday-ui-style/dist/index.min.css",
             to: "tokens/tokens.css"
           }
         ]
