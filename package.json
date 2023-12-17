@@ -9,7 +9,12 @@
   "scripts": {
     "build": "lerna run build",
     "test": "lerna run test",
-    "lint": "lerna run lint"
+    "lint": "lerna run lint",
+    "synckpack-lint": "syncpack lint",
+    "synckpack-mismatches": "syncpack list-mismatches",
+    "synckpack-mismatches:fix": "syncpack fix-mismatches",
+    "synckpack-semver": "syncpack lint-semver-ranges",
+    "synckpack-semver:fix": "syncpack set-semver-ranges"
   },
   "dependencies": {},
   "devDependencies": {
