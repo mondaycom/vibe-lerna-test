@@ -8,5 +8,18 @@
       "dependencies": ["**"],
       "range": "^"
     }
+  ],
+  "versionGroups": [
+    {
+      "label": "Ignore dependencies, which have different versions between packages",
+      "packages": ["**"],
+      "dependencyTypes": ["dev", "prod"],
+      "dependencies": [
+        "jest", "ts-jest", "typescript", "prettier", "eslint-plugin-markdown",
+        "eslint-plugin-jest", "@typescript-eslint/eslint-plugin", "@typescript-eslint/parser",
+        "eslint-plugin-prettier"
+      ],
+      "isIgnored": true
+    }
   ]
 }
