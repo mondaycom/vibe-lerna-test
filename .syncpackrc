@@ -15,7 +15,7 @@
       "packages": ["**"],
       "dependencyTypes": ["dev", "prod"],
       "dependencies": [
-        "jest", "ts-jest", "prettier"
+        "jest", "ts-jest"
       ],
       "isIgnored": true
     }
