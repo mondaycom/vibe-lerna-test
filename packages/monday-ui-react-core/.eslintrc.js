@@ -1,4 +1,7 @@
-const mondayUiReactCoreSpecificRules = {
+const packageSpecificRules = {
+  "react/button-has-type": "error",
+  "@typescript-eslint/no-explicit-any": "warn",
+  "lodash/import-scope": [2, "member"],
   "jsx-a11y/anchor-is-valid": ["error"],
   "jsx-a11y/no-static-element-interactions": "off",
   "jsx-a11y/alt-text": "error",
@@ -15,18 +18,16 @@ const mondayUiReactCoreSpecificRules = {
   "jsx-a11y/click-events-have-key-events": "error",
   "jsx-a11y/label-has-associated-control": "off",
   "jsx-a11y/aria-activedescendant-has-tabindex": "error",
-  "react/button-has-type": "error",
   "jsx-a11y/interactive-supports-focus": "error",
-  "jsx-a11y/no-noninteractive-tabindex": "error",
-  "lodash/import-scope": [2, "member"]
+  "jsx-a11y/no-noninteractive-tabindex": "error"
 };
-const mondayUiReactCoreSpecificPlugins = ["lodash", "jsx-a11y"];
-const mondayUiReactCoreSpecificExtends = [];
+const packageSpecificPlugins = ["lodash", "jsx-a11y"];
+const packageSpecificExtends = [];
 
 module.exports = {
-  extends: ["../../.eslintrc.js", ...mondayUiReactCoreSpecificExtends],
-  plugins: [...mondayUiReactCoreSpecificPlugins],
+  extends: ["../../.eslintrc.js", ...packageSpecificExtends],
+  plugins: [...packageSpecificPlugins],
   rules: {
-    ...mondayUiReactCoreSpecificRules
+    ...packageSpecificRules
   }
 };
