@@ -21,7 +21,7 @@ const mondayUiReactCoreSpecificRules = {
   "lodash/import-scope": [2, "member"]
 };
 const mondayUiReactCoreSpecificPlugins = ["lodash", "jsx-a11y"];
-const mondayUiReactCoreSpecificExtends = ["plugin:react-hooks/recommended"];
+const mondayUiReactCoreSpecificExtends = [];
 
 module.exports = {
   extends: ["../../.eslintrc.js", ...mondayUiReactCoreSpecificExtends],

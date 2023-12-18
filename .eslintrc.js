@@ -36,7 +36,12 @@ const commonRules = {
 
 const commonPlugins = ["import", "react", "json", "markdown", "jest"];
 
-const commonExtends = ["plugin:react/recommended", "plugin:prettier/recommended", "plugin:storybook/recommended"];
+const commonExtends = [
+  "plugin:react/recommended",
+  "plugin:prettier/recommended",
+  "plugin:storybook/recommended",
+  "plugin:react-hooks/recommended"
+];
 
 module.exports = {
   overrides: [
