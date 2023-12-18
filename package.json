@@ -10,8 +10,6 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "lint": "lerna run lint",
-    "lint:vibe": "eslint \"packages/monday-ui-react-core/src/**/*.{js,jsx,ts,tsx}\"",
-    "lint:vibe-storybook-components": "eslint \"packages/vibe-storybook-components/src/**/*.{js,jsx,ts,tsx}\"",
     "synckpack-lint": "syncpack lint",
     "synckpack-mismatches": "syncpack list-mismatches",
     "synckpack-mismatches:fix": "syncpack fix-mismatches",
