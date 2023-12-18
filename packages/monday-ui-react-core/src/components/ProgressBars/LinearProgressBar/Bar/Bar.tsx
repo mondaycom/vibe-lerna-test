@@ -1,10 +1,10 @@
+import { FC, useMemo } from "react";
 import { camelCase } from "lodash-es";
+import cx from "classnames";
 import { getStyle } from "../../../../helpers/typesciptCssModulesHelper";
 import { ComponentDefaultTestId, getTestId } from "../../../../tests/test-ids-utils";
-import cx from "classnames";
-import React, { FC, useMemo } from "react";
 import { calculatePercentage } from "../LinearProgressBarHelpers";
-import VibeComponentProps from "src/types/VibeComponentProps";
+import { VibeComponentProps } from "../../../../types";
 import { ProgressBarStyle, ProgressBarType } from "../LinearProgressBarConstants";
 import styles from "./Bar.module.scss";
 
