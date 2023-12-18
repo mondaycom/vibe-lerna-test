@@ -45,10 +45,10 @@ const TableBody: VibeComponent<ITableBodyProps, HTMLDivElement> = forwardRef(
         {isLoading
           ? skeletonRender
           : isError
-          ? errorState
-          : !children || (Array.isArray(children) && children.length === 0)
-          ? emptyState
-          : children}
+            ? errorState
+            : !children || (Array.isArray(children) && children.length === 0)
+              ? emptyState
+              : children}
       </div>
     );
   }

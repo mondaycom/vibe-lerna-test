@@ -1,9 +1,8 @@
 import React, { CSSProperties, ReactElement, Ref, useMemo } from "react";
 import VirtualizedList, { VirtualizedListItem } from "../VirtualizedList/VirtualizedList";
-import VibeComponentProps from "../../types/VibeComponentProps";
 import { AvatarType } from "../Avatar/AvatarConstants";
 import { AvatarProps } from "../Avatar/Avatar";
-import { ElementContent } from "../../types";
+import { ElementContent, VibeComponentProps } from "../../types";
 import styles from "./AvatarGroupCounterTooltipContentVirtualizedList.module.scss";
 
 const LIST_OPTIONS = Object.freeze({
@@ -37,7 +36,7 @@ const AvatarGroupCounterTooltipContentVirtualizedList: React.FC<
   AvatarGroupCounterTooltipContentVirtualizedListProps
 > = ({ avatarItems = [], avatarRenderer, type, tooltipContainerAriaLabel, tooltipContentContainerRef }) => {
   const virtualizedItems: VirtualizedListItem[] = useMemo(
-    () => avatarItems.map(item => ({ value: item, height: LIST_OPTIONS.itemLineHeight } as VirtualizedListItem)),
+    () => avatarItems.map(item => ({ value: item, height: LIST_OPTIONS.itemLineHeight }) as VirtualizedListItem),
     [avatarItems]
   );
 
