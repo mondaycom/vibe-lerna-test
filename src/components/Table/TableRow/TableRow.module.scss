@@ -1,9 +1,0 @@
-.tableRow {
-  height: 40px;
-  display: grid;
-  grid-template-columns: var(--table-grid-template-columns);
-
-  &:hover > * {
-    background-color: var(--allgrey-background-color);
-  }
-}
