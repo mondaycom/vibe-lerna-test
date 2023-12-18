@@ -3,12 +3,12 @@ import {
   Canvas,
   clearText,
   clickElement,
-  delay,
-  getByRole,
   getByTestId,
+  getByRole,
   interactionSuite,
   InteractionSuite,
-  typeText
+  typeText,
+  delay
 } from "../../../tests/interactions-utils";
 import { ComponentDefaultTestId } from "../../../tests/constants";
 import { resetFocus } from "../../../__tests__/interactions-helper";
