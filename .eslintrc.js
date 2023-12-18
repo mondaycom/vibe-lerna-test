@@ -1,36 +1,36 @@
 const commonRules = {
-  "react/display-name": "off",
   "object-curly-newline": "off",
   "no-debugger": "error",
   "global-require": "off",
   "no-unused-expressions": "off",
-  "react/forbid-foreign-prop-types": "off",
   "no-console": "off",
   "consistent-return": "off",
   "no-use-before-define": "off",
   "one-var": "off",
   "default-case": "off",
   "func-names": "off",
-  "react/sort-comp": "off",
   "class-methods-use-this": "off",
   radix: "off",
   "no-underscore-dangle": "off",
-  "import/prefer-default-export": "off",
   "no-plusplus": "off",
+  "arrow-parens": "off",
+  "default-param-last": "off",
+  "implicit-arrow-linebreak": "off",
+  "react/display-name": "off",
+  "react/forbid-foreign-prop-types": "off",
+  "react/sort-comp": "off",
   "react/react-in-jsx-scope": 0,
   "react/no-danger": "error",
   "react/jsx-one-expression-per-line": "off",
   "react/prop-types": 0,
   "react/forbid-prop-types": "off",
   "react/function-component-definition": "off",
-  "default-param-last": "off",
   "react/require-default-props": ["error"],
   "react/jsx-props-no-spreading": 0,
   "react/jsx-filename-extension": ["error", { extensions: [".js", ".jsx", ".ts", ".tsx"] }],
   "react/default-props-match-prop-types": "error",
   "react/jsx-boolean-value": "off",
-  "arrow-parens": "off",
-  "implicit-arrow-linebreak": "off",
+  "import/prefer-default-export": "off",
   "import/no-extraneous-dependencies": ["error", { devDependencies: true }]
 };
 
@@ -79,9 +79,9 @@ module.exports = {
       plugins: [...commonPlugins, "@typescript-eslint"],
       rules: {
         ...commonRules,
-        "@typescript-eslint/ban-ts-comment": ["warn"],
         "no-unused-vars": "off",
         "react/require-default-props": "off",
+        "@typescript-eslint/ban-ts-comment": ["warn"],
         "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
         "@typescript-eslint/no-empty-function": "off"
       }
@@ -91,7 +91,8 @@ module.exports = {
       rules: {
         ...commonRules,
         "react-hooks/rules-of-hooks": "off",
-        "react/jsx-key": "off"
+        "react/jsx-key": "off",
+        "storybook/no-redundant-story-name": "off" // TODO remove the rule in the future and remove useless stories names
       }
     }
   ],
@@ -109,7 +110,6 @@ module.exports = {
   },
   extends: [...commonExtends, "eslint:recommended"],
   parserOptions: {
-    tsconfigRootDir: __dirname,
     project: ["./packages/*/tsconfig.json"],
     ecmaFeatures: {
       jsx: true
