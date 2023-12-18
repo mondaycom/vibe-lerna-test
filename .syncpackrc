@@ -15,8 +15,7 @@
       "packages": ["**"],
       "dependencyTypes": ["dev", "prod"],
       "dependencies": [
-        "jest", "ts-jest", "prettier", "eslint-plugin-markdown",
-        "eslint-plugin-jest", "eslint-plugin-prettier"
+        "jest", "ts-jest", "prettier"
       ],
       "isIgnored": true
     }
