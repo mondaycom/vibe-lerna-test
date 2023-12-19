@@ -12,7 +12,7 @@
       "label": "Ignore caret ranges for specific dependencies - just for the safety, should be gradually removed",
       "packages": ["**"],
       "dependencyTypes": ["dev", "prod"],
-      "dependencies": ["@popperjs/core", "react-dates", "plop", "postcss"],
+      "dependencies": ["@popperjs/core", "react-dates", "plop", "postcss", "postcss-value-parser"],
       "isIgnored": true
     },
     {
@@ -67,7 +67,9 @@
         "stylelint",
         "ts-loader",
         "typescript",
-        "typescript-plugin-css-modules"
+        "typescript-plugin-css-modules",
+        "@babel/preset-typescript",
+        "plop"
       ],
       "isIgnored": true
     }
