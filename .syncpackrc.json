@@ -69,7 +69,9 @@
         "typescript",
         "typescript-plugin-css-modules",
         "@babel/preset-typescript",
-        "plop"
+        "plop",
+        "@testing-library/jest-dom",
+        "@testing-library/react"
       ],
       "isIgnored": true
     }
