@@ -84,7 +84,7 @@
     "eslint:fix": "npm run eslint -- --fix",
     "stylelint": "stylelint \"**/*.scss\"",
     "stylelint:fix": "npm run stylelint -- --fix",
-    "prettier:fix": "prettier --write \"{,!(node_modules)/**/}*.{js,jsx,ts,tsx}\"",
+    "prettier:fix": "prettier --write \"{,!(node_modules)/**/}*.{js,jsx,ts,tsx,scss}\"",
     "release": "./scripts/release.js",
     "pre-release": "./scripts/prerelease.js"
   },
