@@ -2,7 +2,21 @@
   "dependencyTypes": ["dev", "prod"],
   "semverGroups": [
     {
-      "label": "use caret ranges",
+      "label": "Ignore caret ranges for specific dependencies - should be an exception",
+      "packages": ["**"],
+      "dependencyTypes": ["dev", "prod"],
+      "dependencies": ["browserslist-config-monday"],
+      "isIgnored": true
+    },
+    {
+      "label": "Ignore caret ranges for specific dependencies - just for the safety, should be gradually removed",
+      "packages": ["**"],
+      "dependencyTypes": ["dev", "prod"],
+      "dependencies": ["@popperjs/core", "react-dates", "plop", "postcss"],
+      "isIgnored": true
+    },
+    {
+      "label": "Use caret ranges",
       "packages": ["**"],
       "dependencyTypes": ["dev", "prod"],
       "dependencies": ["**"],
@@ -11,12 +25,49 @@
   ],
   "versionGroups": [
     {
-      "label": "Ignore dependencies, which have different versions between packages",
+      "label": "Ignore dependencies, which have different versions between packages - should be an exception",
+      "packages": ["**"],
+      "dependencyTypes": ["dev", "prod"],
+      "dependencies": ["jest", "ts-jest"],
+      "isIgnored": true
+    },
+    {
+      "label": "Ignore dependencies, which have different versions between packages - will be removed from exceptions soon",
+      "packages": ["**"],
+      "dependencyTypes": ["dev", "prod"],
+      "dependencies": ["prettier", "eslint-plugin-markdown", "eslint-plugin-jest", "eslint-plugin-prettier"],
+      "isIgnored": true
+    },
+    {
+      "label": "Ignore dependencies, which have different versions between packages - just for the safety, should be gradually removed",
       "packages": ["**"],
       "dependencyTypes": ["dev", "prod"],
       "dependencies": [
-        "jest", "ts-jest", "prettier", "eslint-plugin-markdown",
-        "eslint-plugin-jest", "eslint-plugin-prettier"
+        "@babel/core",
+        "@babel/plugin-proposal-class-properties",
+        "@babel/plugin-transform-react-jsx",
+        "@babel/preset-env",
+        "@babel/preset-react",
+        "@rollup/plugin-commonjs",
+        "@rollup/plugin-node-resolve",
+        "autoprefixer",
+        "babel-loader",
+        "chalk",
+        "css-loader",
+        "execa",
+        "mini-css-extract-plugin",
+        "postcss",
+        "postcss-loader",
+        "postcss-scss",
+        "rollup",
+        "rollup-plugin-typescript2",
+        "sass",
+        "sass-loader",
+        "style-loader",
+        "stylelint",
+        "ts-loader",
+        "typescript",
+        "typescript-plugin-css-modules"
       ],
       "isIgnored": true
     }
