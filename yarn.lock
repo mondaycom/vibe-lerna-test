@@ -3864,7 +3864,7 @@
     "@storybook/global" "^5.0.0"
     memoizerific "^1.11.3"
 
-"@storybook/types@7.6.5", "@storybook/types@^7.5.0":
+"@storybook/types@7.6.5", "@storybook/types@^7.5.3":
   version "7.6.5"
   resolved "https://registry.npmjs.org/@storybook/types/-/types-7.6.5.tgz#25c20d6bb350117f740b7f1f138f354f25d506bc"
   integrity sha512-Q757v+fYZZSaEpks/zDL5YgXRozxkgKakXFc+BoQHK5q5sVhJ+0jvpLJiAQAniIIaMIkqY/G24Kd6Uo6UdKBCg==
