@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import classes from './index.module.scss';
-import { ElementContent } from '../../types';
+import { FC } from "react";
+import classes from "./index.module.scss";
+import { ElementContent } from "../../types";
 
 type FunctionArgumentProps = {
   children?: ElementContent;
@@ -17,16 +17,16 @@ const FunctionArgument: FC<FunctionArgumentProps> = ({
   type,
   description,
   default: defaultValue,
-  required,
+  required
 }) => (
   <li className={classes.argument}>
-    {name && <code className={classes['argument-name']}>{name}</code>}
-    <code className={classes['argument-type']}>{type}</code>
+    {name && <code className={classes["argument-name"]}>{name}</code>}
+    <code className={classes["argument-type"]}>{type}</code>
     {required && <span className={classes.required}>*</span>}
     {description && <> - {description}</>}
     {defaultValue && (
       <>
-        {' '}
+        {" "}
         Defaults to: <code>{defaultValue}</code>
       </>
     )}

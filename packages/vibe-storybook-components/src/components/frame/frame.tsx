@@ -1,7 +1,7 @@
-import { FC } from 'react';
-import cx from 'classnames';
-import { ElementContent } from '../../types';
-import styles from './frame.module.scss';
+import { FC } from "react";
+import cx from "classnames";
+import { ElementContent } from "../../types";
+import styles from "./frame.module.scss";
 
 type FrameProps = {
   children: ElementContent;
@@ -14,7 +14,7 @@ const Frame: FC<FrameProps> = ({ children, className, noGutter = false, noBorder
   <div
     className={cx(styles.frame, className, {
       [styles.noGutter]: noGutter,
-      [styles.noBorder]: noBorder,
+      [styles.noBorder]: noBorder
     })}
   >
     {children}

@@ -1,28 +1,28 @@
-import { GithubContributorResponse } from './github-contributors-types';
+import { GithubContributorResponse } from "./github-contributors-types";
 
 export async function fetchContributors(
   organizationName: string,
   packageName: string,
-  page: number,
+  page: number
 ): Promise<GithubContributorResponse[]> {
   try {
     const request = await fetch(
       `https://api.github.com/repos/${organizationName}/${packageName}/contributors?per_page=100&page=${page}&order=desc`,
       {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-        },
-      },
+          "Content-Type": "application/json"
+        }
+      }
     );
 
     const contributors = await request.json();
     if (!contributors || !Array.isArray(contributors)) {
-      throw new Error('Unexpected API response, contributors = ', contributors);
+      throw new Error("Unexpected API response, contributors = ", contributors);
     }
     return contributors;
   } catch (e) {
-    console.error('Error while loading Github contributors, page ', page, ' - ', e);
+    console.error("Error while loading Github contributors, page ", page, " - ", e);
     return [];
   }
 }

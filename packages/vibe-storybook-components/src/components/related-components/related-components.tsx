@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
-import { LinkTarget } from '../link/LinkConstants';
-import { withStaticProps } from '../../types';
-import { RelatedComponentsContext } from './related-components-context';
-import styles from './related-components.module.scss';
+import React, { useMemo } from "react";
+import { LinkTarget } from "../link/LinkConstants";
+import { withStaticProps } from "../../types";
+import { RelatedComponentsContext } from "./related-components-context";
+import styles from "./related-components.module.scss";
 
 interface RelatedComponentsProps {
   componentsNames: string[];
@@ -13,7 +13,7 @@ interface RelatedComponentsProps {
 const RelatedComponents: React.FC<RelatedComponentsProps> & { linkTargets?: typeof LinkTarget } = ({
   componentsNames = [],
   descriptionComponentsMap,
-  linkTarget,
+  linkTarget
 }) => {
   const componentsDataElements = useMemo(
     () =>
@@ -22,7 +22,7 @@ const RelatedComponents: React.FC<RelatedComponentsProps> & { linkTargets?: type
 
         return <section key={key}>{descriptionComponentsMap.get(componentName)}</section>;
       }),
-    [componentsNames, descriptionComponentsMap],
+    [componentsNames, descriptionComponentsMap]
   );
 
   return (

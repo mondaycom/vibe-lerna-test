@@ -1,5 +1,5 @@
-import React from 'react';
-import { Preview } from '@storybook/react';
+import React from "react";
+import { Preview } from "@storybook/react";
 import {
   AnchorListItem,
   ComponentRules,
@@ -16,18 +16,18 @@ import {
   Tip,
   UnstyledList,
   UnstyledListItem,
-  UsageGuidelines,
-} from '../src';
-import { ComponentNameDecorator } from '../storybook/components';
-import { DocsContainer, DocsPage, Unstyled } from '@storybook/blocks';
-import { withThemeByClassName } from '@storybook/addon-themes';
-import '../src/styles/tokens/index.scss';
+  UsageGuidelines
+} from "../src";
+import { ComponentNameDecorator } from "../storybook/components";
+import { DocsContainer, DocsPage, Unstyled } from "@storybook/blocks";
+import { withThemeByClassName } from "@storybook/addon-themes";
+import "../src/styles/tokens/index.scss";
 
 const preview: Preview = {
   parameters: {
     docs: {
       story: {
-        inline: true,
+        inline: true
       },
       container: ({ children, context }: { children: any; context: any }) => (
         <DocsContainer context={context}>
@@ -57,25 +57,25 @@ const preview: Preview = {
         Frame,
         Tip,
         UnstyledList,
-        UnstyledListItem,
-      },
+        UnstyledListItem
+      }
     },
     options: {
       storySort: {
-        order: ['Welcome', 'Change Log', '*'],
-      },
-    },
+        order: ["Welcome", "Change Log", "*"]
+      }
+    }
   },
   decorators: [
     withThemeByClassName({
       themes: {
-        Light: 'light-app-theme',
-        Dark: 'dark-app-theme',
-        Black: 'black-app-theme',
+        Light: "light-app-theme",
+        Dark: "dark-app-theme",
+        Black: "black-app-theme"
       },
-      defaultTheme: 'Light',
-    }) as any,
-  ],
+      defaultTheme: "Light"
+    }) as any
+  ]
 };
 
 export default preview;

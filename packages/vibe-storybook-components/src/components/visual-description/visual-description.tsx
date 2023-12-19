@@ -1,6 +1,6 @@
-import React from 'react';
-import cx from 'classnames';
-import styles from './visual-description.module.scss';
+import React from "react";
+import cx from "classnames";
+import styles from "./visual-description.module.scss";
 
 interface VisualDescriptionProps {
   title: string;
@@ -19,7 +19,7 @@ const VisualDescription: React.FC<VisualDescriptionProps> = ({
   description,
   code,
   className,
-  visualDescriptionClassName,
+  visualDescriptionClassName
 }) => (
   <div className={cx(styles.visualDescription, className)} aria-label={ariaLabel}>
     <figure className={cx(styles.visualDescriptionVisual, visualDescriptionClassName)} aria-hidden>

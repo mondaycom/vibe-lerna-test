@@ -19,8 +19,7 @@ module.exports = plop => {
     actions: [
       {
         type: "add",
-        path:
-          "src/components/{{properCase componentName}}/__tests__/{{camelCase componentName}}-snapshot-tests.jest.js",
+        path: "src/components/{{properCase componentName}}/__tests__/{{camelCase componentName}}-snapshot-tests.jest.js",
         templateFile: "plop/general/component-snapshot-tests-jest.txt"
       },
       {

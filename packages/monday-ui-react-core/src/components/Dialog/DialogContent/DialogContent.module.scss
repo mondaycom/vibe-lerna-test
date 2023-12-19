@@ -77,7 +77,9 @@ $translate-minus-px: calc(var(--spacing-medium) * -1);
 }
 
 .opacitySlideAppearActive {
-  transition: opacity 0.2s ease, transform 0.2s ease-out;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease-out;
   opacity: 1;
   pointer-events: none;
 

@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react';
-import cx from 'classnames';
-import ComponentRule from '../component-rule/component-rule';
-import { ElementContent } from '../../types';
-import styles from './component-rules.module.scss';
+import React, { useMemo } from "react";
+import cx from "classnames";
+import ComponentRule from "../component-rule/component-rule";
+import { ElementContent } from "../../types";
+import styles from "./component-rules.module.scss";
 
 interface ComponentRulesProps {
   rules: {
@@ -45,7 +45,7 @@ const ComponentRules: React.FC<ComponentRulesProps> = ({ rules = [], className }
           </section>
         );
       }),
-    [className, rules],
+    [className, rules]
   );
 
   return <article className={styles.componentRules}>{componentRulesElements}</article>;
