@@ -32,13 +32,6 @@
       "isIgnored": true
     },
     {
-      "label": "Ignore dependencies, which have different versions between packages - will be removed from exceptions soon",
-      "packages": ["**"],
-      "dependencyTypes": ["dev", "prod"],
-      "dependencies": ["prettier", "eslint-plugin-markdown", "eslint-plugin-jest", "eslint-plugin-prettier"],
-      "isIgnored": true
-    },
-    {
       "label": "Ignore dependencies, which have different versions between packages - just for the safety, should be gradually removed",
       "packages": ["**"],
       "dependencyTypes": ["dev", "prod"],
