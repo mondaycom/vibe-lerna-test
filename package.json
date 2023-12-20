@@ -16,7 +16,6 @@
     "synckpack-semver": "syncpack lint-semver-ranges",
     "synckpack-semver:fix": "syncpack set-semver-ranges"
   },
-  "dependencies": {},
   "devDependencies": {
     "lerna": "^7.4.2",
     "syncpack": "^11.2.1"
