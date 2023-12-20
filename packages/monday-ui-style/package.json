@@ -46,14 +46,14 @@
   },
   "homepage": "https://github.com/mondaycom/monday-ui-style#readme",
   "dependencies": {
-    "postcss": "^8.4.32",
+    "postcss": "8.4.31",
     "postcss-scss": "^4.0.9",
-    "postcss-value-parser": "^4.2.0"
+    "postcss-value-parser": "4.2.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.23.6",
-    "@babel/preset-react": "^7.23.3",
-    "@babel/preset-typescript": "^7.23.3",
+    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",
@@ -70,10 +70,10 @@
     "chromatic": "^7.5.3",
     "classnames": "^2.3.2",
     "clean-css-cli": "^4.3.0",
-    "execa": "^7.2.0",
+    "execa": "^5.1.1",
     "jest": "^27.5.1",
     "node-plop": "^0.26.2",
-    "plop": "^2.7.6",
+    "plop": "^2.7.4",
     "prettier": "^3.1.0",
     "prop-types": "^15.8.1",
     "react": "^16.14.0",
