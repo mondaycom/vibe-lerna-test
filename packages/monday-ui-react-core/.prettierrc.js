@@ -1,7 +1,1 @@
-const config = {
-  printWidth: 120,
-  trailingComma: "none",
-  arrowParens: "avoid"
-};
-
-module.exports = config;
+module.exports = require("../../.prettierrc.js");
