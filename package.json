@@ -10,6 +10,7 @@
     "build": "lerna run build",
     "test": "lerna run test",
     "lint": "lerna run lint",
+    "build-storybook": "lerna run build-storybook",
     "prettier:fix": "lerna run prettier:fix",
     "synckpack-lint": "syncpack lint",
     "synckpack-mismatches": "syncpack list-mismatches",
