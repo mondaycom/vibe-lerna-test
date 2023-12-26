@@ -1,10 +1,10 @@
 name: Publish Storybook
 
 on:
-#  workflow_run:
-#    workflows: ["Release new version"]
-#    types:
-#      - completed
+  #  workflow_run:
+  #    workflows: ["Release new version"]
+  #    types:
+  #      - completed
   workflow_dispatch:
 
 jobs:
@@ -16,19 +16,35 @@ jobs:
         with:
           node-version-file: ".nvmrc"
       - name: Build & deploy Storybook to GitHub Pages
+        id: build_step
         run: |
-          yarn --frozen-lockfile
+          yarn install --frozen-lockfile
           yarn build
           yarn build-storybook
-          cd static_storybook
-          echo "style.monday.com" > ./CNAME
+        #          echo "style.monday.com" > ./CNAME
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-      - name: Push to Storybook's branch
-        if: success()
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      - name: Push monday-ui-react-core Storybook to Github Pages
+        if: ${{ steps.build_step.outputs.success == 'true' }}
         uses: crazy-max/ghaction-github-pages@v2
         with:
-          target_branch: "gh-pages"
-          build_dir: static_storybook
+          target_branch: "gh-pages-monday-ui-react-core"
+          build_dir: "packages/monday-ui-react-core/storybook-static"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push monday-ui-style Storybook to Github Pages
+        if: ${{ steps.build_step.outputs.success == 'true' }}
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: "gh-pages-monday-ui-style"
+          build_dir: "packages/monday-ui-style/storybook-static"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push vibe-storybook-components Storybook to Github Pages
+        if: ${{ steps.build_step.outputs.success == 'true' }}
+        uses: crazy-max/ghaction-github-pages@v2
+        with:
+          target_branch: "gh-pages-vibe-storybook-components"
+          build_dir: "packages/vibe-storybook-components/storybook-static"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
