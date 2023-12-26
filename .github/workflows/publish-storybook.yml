@@ -21,11 +21,12 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
           yarn build-storybook
+          echo ::set-output name=success::$(echo "true")
         #          echo "style.monday.com" > ./CNAME
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
       - name: Push monday-ui-react-core Storybook to Github Pages
-        if: ${{ steps.build_step.outputs.success == 'true' }}
+        if: ${{ steps.build_step.outputs.success == "true" }}
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: "gh-pages-monday-ui-react-core"
@@ -33,7 +34,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push monday-ui-style Storybook to Github Pages
-        if: ${{ steps.build_step.outputs.success == 'true' }}
+        if: ${{ steps.build_step.outputs.success == "true" }}
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: "gh-pages-monday-ui-style"
@@ -41,7 +42,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push vibe-storybook-components Storybook to Github Pages
-        if: ${{ steps.build_step.outputs.success == 'true' }}
+        if: ${{ steps.build_step.outputs.success == "true" }}
         uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: "gh-pages-vibe-storybook-components"
