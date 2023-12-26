@@ -135,7 +135,7 @@ module.exports = () => {
             to: "assets/"
           },
           {
-            from: "../../node_modules/monday-ui-style/dist/index.min.css",
+            from: "../../packages/monday-ui-style/dist/index.min.css",
             to: "tokens/tokens.css"
           }
         ]
