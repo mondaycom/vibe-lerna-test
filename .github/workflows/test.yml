@@ -12,9 +12,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-      - name: Install
+      - name: Install and build
         run: |
           yarn --frozen-lockfile
+          yarn build
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
@@ -30,9 +31,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-      - name: Install
+      - name: Install and build
         run: |
           yarn --frozen-lockfile
+          yarn build
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
@@ -41,24 +43,6 @@ jobs:
         run: |
           yarn lint
 
-  build-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v3
-        with:
-          node-version-file: ".nvmrc"
-      - name: Install
-        run: |
-          yarn --frozen-lockfile
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
-
-      - name: Test
-        if: success()
-        run: |
-          yarn build
-
   build-storybook-test:
     runs-on: ubuntu-latest
     steps:
@@ -66,9 +50,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
-      - name: Install
+      - name: Install and build
         run: |
           yarn --frozen-lockfile
+          yarn build
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
 
