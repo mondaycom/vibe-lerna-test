@@ -1,13 +1,13 @@
-# This workflow will ensure all PRs are labeled, so we can later create releases
+# This workflow will ensure that PR is labeled, so later we can create releases
 
-name: Check PR labels
+name: Check PR label
 
 on:
   pull_request:
     types: [opened, labeled, unlabeled, synchronize]
 
 jobs:
-  ensure-label:
+  check-pr-label:
     runs-on: ubuntu-latest
     steps:
       - name: Check Labels
