@@ -158,7 +158,8 @@
   color: var(--icon-color);
   will-change: transform;
   pointer-events: none;
-  transition: color var(--motion-productive-short) var(--motion-timing-enter),
+  transition:
+    color var(--motion-productive-short) var(--motion-timing-enter),
     transform var(--motion-productive-short) var(--motion-timing-enter);
   font-size: 14px;
 }

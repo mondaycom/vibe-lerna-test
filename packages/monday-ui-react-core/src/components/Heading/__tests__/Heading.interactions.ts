@@ -9,5 +9,5 @@ async function isTooltipAppearOnHover(canvas: Screen) {
 }
 
 export const headingOverflowSuite: InteractionSuite = interactionSuite({
-  tests: [isTooltipAppearOnHover]
+  tests: [isTooltipAppearOnHover],
 });

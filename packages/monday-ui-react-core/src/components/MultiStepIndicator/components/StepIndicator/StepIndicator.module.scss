@@ -112,7 +112,9 @@
 .swapEnterActive {
   position: relative;
   opacity: 1;
-  transition: transform var(--motion-productive-long) var(--motion-timing-enter), opacity var(--motion-productive-short);
+  transition:
+    transform var(--motion-productive-long) var(--motion-timing-enter),
+    opacity var(--motion-productive-short);
   transform: translateY(0);
 }
 
@@ -128,7 +130,9 @@
   position: relative;
   opacity: 0;
   transform: translateY(-15px);
-  transition: transform var(--motion-productive-long) var(--motion-timing-enter), opacity var(--motion-productive-short);
+  transition:
+    transform var(--motion-productive-long) var(--motion-timing-enter),
+    opacity var(--motion-productive-short);
 }
 
 .numberContainer {
@@ -184,19 +188,27 @@
 }
 
 .statusActiveNumberContainer {
-  box-shadow: 0 0 0 4px var(--primary-background-color), 0 0 0 6px var(--primary-color);
+  box-shadow:
+    0 0 0 4px var(--primary-background-color),
+    0 0 0 6px var(--primary-color);
 }
 
 .statusActiveNumberContainer.typeDangerNumberContainer {
-  box-shadow: 0 0 0 4px var(--primary-background-color), 0 0 0 6px var(--negative-color);
+  box-shadow:
+    0 0 0 4px var(--primary-background-color),
+    0 0 0 6px var(--negative-color);
 }
 
 .statusActiveNumberContainer.typeSuccessNumberContainer {
-  box-shadow: 0 0 0 4px var(--primary-background-color), 0 0 0 6px var(--positive-color);
+  box-shadow:
+    0 0 0 4px var(--primary-background-color),
+    0 0 0 6px var(--positive-color);
 }
 
 .statusActiveNumberContainer.typeDarkNumberContainer {
-  box-shadow: 0 0 0 4px var(--primary-background-color), 0 0 0 6px var(--primary-text-color);
+  box-shadow:
+    0 0 0 4px var(--primary-background-color),
+    0 0 0 6px var(--primary-text-color);
 }
 
 .sizeCompactNumberContainer {

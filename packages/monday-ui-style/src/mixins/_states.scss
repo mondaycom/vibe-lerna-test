@@ -39,7 +39,9 @@
     outline: none;
     z-index: 11;
     border-radius: $focus-radius;
-    box-shadow: 0 0 0 3px hsl(209deg 100% 50% / 50%), 0 0 0 1px var(--primary-hover-color) inset;
+    box-shadow:
+      0 0 0 3px hsl(209deg 100% 50% / 50%),
+      0 0 0 1px var(--primary-hover-color) inset;
   }
 
   &:focus:not(.focus-visible) {
