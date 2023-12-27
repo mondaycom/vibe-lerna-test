@@ -2,7 +2,8 @@
   display: inline-flex;
   align-items: center;
   border-radius: var(--border-radius-small);
-  transition: var(--motion-productive-short) transform,
+  transition:
+    var(--motion-productive-short) transform,
     var(--motion-productive-medium) var(--motion-timing-transition) min-width;
 }
 

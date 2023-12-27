@@ -5,8 +5,9 @@ import {
   clickElement,
   delay,
   getByTestId,
+  InteractionSuite,
   interactionSuite,
-  typeText
+  typeText,
 } from "../../../tests/interactions-utils";
 import { ComponentDefaultTestId } from "../../../tests/constants";
 import { resetFocus } from "../../../__tests__/interactions-helper";
@@ -36,6 +37,6 @@ async function textSimpleText(canvas: Canvas) {
   expect(editableHeading).toHaveTextContent(text);
 }
 
-export const overviewPlaySuite = interactionSuite({
-  tests: [textSimpleText]
+export const overviewPlaySuite: InteractionSuite = interactionSuite({
+  tests: [textSimpleText],
 });

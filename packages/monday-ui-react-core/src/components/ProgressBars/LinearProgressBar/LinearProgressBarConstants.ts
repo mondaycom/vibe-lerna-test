@@ -1,6 +1,6 @@
 export enum ProgressBarType {
   PRIMARY = "primary",
-  SECONDARY = "secondary"
+  SECONDARY = "secondary",
 }
 
 export enum ProgressBarStyle {
@@ -8,5 +8,5 @@ export enum ProgressBarStyle {
   SECONDARY = "secondary",
   POSITIVE = "positive",
   NEGATIVE = "negative",
-  NONE = "none"
+  NONE = "none",
 }

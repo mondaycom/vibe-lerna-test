@@ -122,7 +122,7 @@ const IMMEDIATE_SHOW_THRESHOLD_MS = 1500;
 // Shared state across multiple tooltip instances (i.e last tooltip shown time)
 const globalState: { lastTooltipHideTS: number; openTooltipsCount: number } = {
   lastTooltipHideTS: null,
-  openTooltipsCount: 0
+  openTooltipsCount: 0,
 };
 
 export default class Tooltip extends PureComponent<TooltipProps> {
@@ -153,7 +153,7 @@ export default class Tooltip extends PureComponent<TooltipProps> {
     showOnDialogEnter: false,
     referenceWrapperClassName: "",
     addKeyboardHideShowTriggersByDefault: false,
-    open: false
+    open: false,
   };
   constructor(props: TooltipProps) {
     super(props);
@@ -194,7 +194,7 @@ export default class Tooltip extends PureComponent<TooltipProps> {
           styles.tooltip,
           getStyle(styles, camelCase(theme)),
           getStyle(styles, camelCase("padding-size-" + paddingSize)),
-          className
+          className,
         )}
       >
         {contentValue}
@@ -235,12 +235,12 @@ export default class Tooltip extends PureComponent<TooltipProps> {
       // showing the tooltip immediately (without animation)
       return {
         showDelay: immediateShowDelay,
-        preventAnimation: true
+        preventAnimation: true,
       };
     }
     return {
       showDelay,
-      preventAnimation: false
+      preventAnimation: false,
     };
   }
 
@@ -256,7 +256,7 @@ export default class Tooltip extends PureComponent<TooltipProps> {
       tip,
       arrowClassName,
       id,
-      "data-testid": dataTestId
+      "data-testid": dataTestId,
     } = this.props;
 
     if (!children && !forceRenderWithoutChildren) {
@@ -279,12 +279,12 @@ export default class Tooltip extends PureComponent<TooltipProps> {
         styles.arrow,
         getStyle(styles, theme),
         getStyle(styles, camelCase("padding-size-" + paddingSize)),
-        arrowClassName
+        arrowClassName,
       ),
       animationType: AnimationType.EXPAND,
       onDialogDidHide: this.onTooltipHide,
       onDialogDidShow: this.onTooltipShow,
-      getDynamicShowDelay: this.getShowDelay
+      getDynamicShowDelay: this.getShowDelay,
     };
     return <Dialog {...dialogProps}>{children}</Dialog>;
   }

@@ -12,9 +12,9 @@ import * as fs from "fs";
 import ejs from "ejs";
 
 const EXTENSIONS = [".js", ".jsx", ".ts", ".tsx"];
-const ROOT_PATH = path.join(__dirname);
-const SRC_PATH = path.join(ROOT_PATH, "src");
-const DIST_PATH = path.join(ROOT_PATH, "dist");
+const PACKAGE_ROOT = path.join(__dirname);
+const SRC_PATH = path.join(PACKAGE_ROOT, "src");
+const DIST_PATH = path.join(PACKAGE_ROOT, "dist");
 const injectStyle = fs.readFileSync("./rollup/styleInject.ejs", "utf8");
 
 const shouldMockModularClassnames = process.env.mock_classnames === "on";
@@ -59,35 +59,37 @@ export default {
     indent: false,
     strict: false,
     exports: "named",
+    format: "es",
     preserveModules: true,
-    sourcemap: true
+    preserveModulesRoot: ".",
+    sourcemap: true,
   },
   input: {
     index: path.join(SRC_PATH, "index.js"),
     icons: path.join(SRC_PATH, "components/Icon/Icons/index.ts"),
     interactionsTests: path.join(SRC_PATH, "tests/interactions-utils.ts"),
     testIds: path.join(SRC_PATH, "tests/test-ids-utils.ts"),
-    next: path.join(SRC_PATH, "next/next.ts")
+    next: path.join(SRC_PATH, "next/next.ts"),
   },
-  external: [/node_modules\/(?!monday-ui-style)(.*)/],
+  external: [/node_modules/],
   plugins: [
     commonjs(),
     nodeResolve({
-      extensions: [...EXTENSIONS, ".json", ".css"]
+      extensions: [...EXTENSIONS, ".json", ".css"],
     }),
     typescript({
-      tsconfig: path.join(ROOT_PATH, "tsconfig.esm.json")
+      tsconfig: path.join(PACKAGE_ROOT, "tsconfig.esm.json"),
     }),
     babel({
       babelHelpers: "bundled",
-      extensions: EXTENSIONS
+      extensions: EXTENSIONS,
     }),
     terser({
       compress: {
         pure_getters: true,
         unsafe: true,
-        unsafe_comps: true
-      }
+        unsafe_comps: true,
+      },
     }),
     postcss({
       /**
@@ -114,8 +116,8 @@ export default {
         generateScopedName: (name, filename, css) =>
           shouldMockModularClassnames
             ? generateCssModulesMockName(name)
-            : generateCssModulesScopedName(name, filename, css)
-      }
-    })
-  ]
+            : generateCssModulesScopedName(name, filename, css),
+      },
+    }),
+  ],
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import SplitButton from "../SplitButton";
 import userEvent from "@testing-library/user-event";
@@ -39,7 +39,7 @@ const renderComponent = ({ ...props } = {}) => {
   return render(
     <SplitButton {...props} className={className} secondaryDialogContent={secondaryContent}>
       {text}
-    </SplitButton>
+    </SplitButton>,
   );
 };
 
@@ -72,7 +72,7 @@ describe("SplitButton tests", () => {
     it("calls onSecondaryDialogDidShow when click on secondaryButton", () => {
       const onSecondaryDialogDidShow = jest.fn();
       const splitButtonComponent = renderComponent({
-        onSecondaryDialogDidShow
+        onSecondaryDialogDidShow,
       });
       const arrowButton = getSecondaryButton(splitButtonComponent);
       act(() => {
@@ -85,7 +85,7 @@ describe("SplitButton tests", () => {
     it("calls onSecondaryDialogDidHide when click on secondaryButton", () => {
       const onSecondaryDialogDidHideMock = jest.fn();
       const splitButtonComponent = renderComponent({
-        onSecondaryDialogDidHide: onSecondaryDialogDidHideMock
+        onSecondaryDialogDidHide: onSecondaryDialogDidHideMock,
       });
       const arrowButton = getSecondaryButton(splitButtonComponent);
 
@@ -146,7 +146,7 @@ describe("SplitButton tests", () => {
   describe("with SplitButtonMenu", () => {
     it("should focus on first menu item", async () => {
       const splitButtonComponent = render(
-        <SplitButton secondaryDialogContent={menuSecondaryContent}>{text}</SplitButton>
+        <SplitButton secondaryDialogContent={menuSecondaryContent}>{text}</SplitButton>,
       );
       const arrowButton = getSecondaryButton(splitButtonComponent);
       act(() => {
@@ -154,7 +154,7 @@ describe("SplitButton tests", () => {
         userEvent.keyboard(ENTER_KEY);
       });
       const menu = await splitButtonComponent.findByTestId(getTestId(ComponentDefaultTestId.MENU, splitMenuId));
-      expect(menu).toHaveAttribute("aria-activedescendant", `${splitMenuId}-item-0`);
+      await waitFor(() => expect(menu).toHaveAttribute("aria-activedescendant", `${splitMenuId}-item-0`));
       const firstMenuItemId = `${getTestId(ComponentDefaultTestId.MENU_ITEM)}_0`;
       expect(splitButtonComponent.getByTestId(firstMenuItemId)).toHaveFocus();
     });

@@ -2,7 +2,7 @@ import { expect } from "@storybook/jest";
 import { userEvent, within } from "@storybook/testing-library";
 import { Screen } from "@testing-library/react";
 import { resetFocus } from "../../../../__tests__/interactions-helper";
-import { delay, interactionSuite } from "../../../../tests/interactions-utils";
+import { delay, InteractionSuite, interactionSuite } from "../../../../tests/interactions-utils";
 
 const CHANGES_DELAY = 100;
 
@@ -87,16 +87,16 @@ const openAccordionItemsMultiActiveTests = async (canvas: Screen) => {
   await openAndCheckMultiAccordionItem(canvas, "Integration", 2);
 };
 
-export const accordionSingleActivePlaySuite = interactionSuite({
+export const accordionSingleActivePlaySuite: InteractionSuite = interactionSuite({
   tests: [openCloseAccordionSingleActiveTests, closeAlreadyOpenSingleActiveTests],
   afterEach: async () => {
     await resetFocus();
-  }
+  },
 });
 
-export const accordionMultiActivePlaySuite = interactionSuite({
+export const accordionMultiActivePlaySuite: InteractionSuite = interactionSuite({
   tests: [closeAlreadyActiveMultiActiveTests, openAccordionItemsMultiActiveTests],
   afterEach: async () => {
     await resetFocus();
-  }
+  },
 });

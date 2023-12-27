@@ -1,15 +1,14 @@
 import React, { CSSProperties, ReactElement, Ref, useMemo } from "react";
 import VirtualizedList, { VirtualizedListItem } from "../VirtualizedList/VirtualizedList";
-import VibeComponentProps from "../../types/VibeComponentProps";
 import { AvatarType } from "../Avatar/AvatarConstants";
 import { AvatarProps } from "../Avatar/Avatar";
-import { ElementContent } from "../../types";
+import { ElementContent, VibeComponentProps } from "../../types";
 import styles from "./AvatarGroupCounterTooltipContentVirtualizedList.module.scss";
 
 const LIST_OPTIONS = Object.freeze({
   maxItemsWithoutScroll: 10,
   itemLineHeight: 34,
-  itemLineWidth: 150
+  itemLineWidth: 150,
 });
 
 export type AvatarItem = {
@@ -26,7 +25,7 @@ interface AvatarGroupCounterTooltipContentVirtualizedListProps extends VibeCompo
     index: number,
     style: CSSProperties,
     type: AvatarType,
-    displayAsGrid: boolean
+    displayAsGrid: boolean,
   ) => ReactElement;
   tooltipContainerAriaLabel?: string;
   tooltipContentContainerRef?: Ref<HTMLDivElement>;
@@ -37,14 +36,14 @@ const AvatarGroupCounterTooltipContentVirtualizedList: React.FC<
   AvatarGroupCounterTooltipContentVirtualizedListProps
 > = ({ avatarItems = [], avatarRenderer, type, tooltipContainerAriaLabel, tooltipContentContainerRef }) => {
   const virtualizedItems: VirtualizedListItem[] = useMemo(
-    () => avatarItems.map(item => ({ value: item, height: LIST_OPTIONS.itemLineHeight } as VirtualizedListItem)),
-    [avatarItems]
+    () => avatarItems.map(item => ({ value: item, height: LIST_OPTIONS.itemLineHeight }) as VirtualizedListItem),
+    [avatarItems],
   );
 
   const minCount = Math.min(avatarItems.length, LIST_OPTIONS.maxItemsWithoutScroll);
   const virtualizedListStyle = {
     height: LIST_OPTIONS.itemLineHeight * minCount,
-    minWidth: LIST_OPTIONS.itemLineWidth
+    minWidth: LIST_OPTIONS.itemLineWidth,
   };
 
   return (

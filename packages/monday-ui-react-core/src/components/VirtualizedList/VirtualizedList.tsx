@@ -9,7 +9,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from "react";
 import { noop as NOOP } from "lodash-es";
 import {
@@ -18,7 +18,7 @@ import {
   VariableSizeList as List,
   ListOnItemsRenderedProps,
   ListChildComponentProps,
-  VariableSizeList
+  VariableSizeList,
 } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import usePrevious from "../../hooks/usePrevious";
@@ -29,12 +29,11 @@ import {
   getMaxOffset,
   getNormalizedItems,
   getOnItemsRenderedData,
-  isLayoutDirectionScrollbarVisible
+  isLayoutDirectionScrollbarVisible,
 } from "../../services/virtualized-service";
 import { getTestId } from "../../tests/test-ids-utils";
 import { ComponentDefaultTestId } from "../../tests/constants";
-import VibeComponentProps from "src/types/VibeComponentProps";
-import VibeComponent from "../../types/VibeComponent";
+import { VibeComponent, VibeComponentProps } from "../../types";
 import styles from "./VirtualizedList.module.scss";
 
 export type VirtualizedListItem = {
@@ -106,7 +105,7 @@ interface VirtualizedListProps extends VibeComponentProps {
     lastItemId,
     centerItemId,
     firstItemOffsetEnd,
-    currentOffsetTop
+    currentOffsetTop,
   }: {
     firstItemId: string;
     secondItemId: string;
@@ -164,9 +163,9 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
       scrollableClassName,
       role,
       style,
-      "data-testid": dataTestId
+      "data-testid": dataTestId,
     },
-    ref
+    ref,
   ) => {
     // states
     const [listHeight, setListHeight] = useState(0);
@@ -189,7 +188,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
       initialized: false,
       scrollOffsetInitial: 0,
       scrollOffsetFinal: 0,
-      animationStartTime: 0
+      animationStartTime: 0,
     });
     const mergedRef = useMergeRef(ref, componentRef);
     const mergedListRef = useMergeRef(virtualListRef, listRef);
@@ -212,7 +211,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
         }
         return height;
       },
-      [getItemHeight, getItemSize]
+      [getItemHeight, getItemSize],
     );
 
     const idGetter = useCallback(
@@ -223,7 +222,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
         }
         return itemId;
       },
-      [getItemId]
+      [getItemId],
     );
 
     // Memos
@@ -241,7 +240,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
       ({
         scrollDirection,
         scrollOffset,
-        scrollUpdateWasRequested
+        scrollUpdateWasRequested,
       }: {
         scrollDirection: ScrollDirection;
         scrollOffset: number;
@@ -253,7 +252,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
         }
         onScroll && onScroll(scrollDirection, scrollOffset, scrollUpdateWasRequested);
       },
-      [onScroll, scrollTopRef, animationData]
+      [onScroll, scrollTopRef, animationData],
     );
 
     const animateScroll = useCallback(() => {
@@ -294,7 +293,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
         animationData.animationStartTime = performance.now();
         animateScroll();
       },
-      [animationData, animateScroll, onScrollToFinished]
+      [animationData, animateScroll, onScrollToFinished],
     );
 
     const rowRenderer = useCallback(
@@ -302,7 +301,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
         const item = items[index];
         return itemRenderer(item, index, style);
       },
-      [items, itemRenderer]
+      [items, itemRenderer],
     );
 
     const calcItemSize = useCallback(
@@ -310,7 +309,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
         const item = items[index];
         return sizeGetter(item, index);
       },
-      [items, sizeGetter]
+      [items, sizeGetter],
     );
 
     const updateListSize = useCallback(
@@ -323,7 +322,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
           }, 0);
         }
       },
-      [listHeight, listWidth, onSizeUpdate]
+      [listHeight, listWidth, onSizeUpdate],
     );
 
     const onItemsRenderedCB = useThrottledCallback(
@@ -336,12 +335,12 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
           visibleStartIndex,
           visibleStopIndex,
           listSizeByLayout,
-          scrollTopRef.current
+          scrollTopRef.current,
         );
         onItemsRendered(data);
       },
       { wait: onItemsRenderedThrottleMs, trailing: true },
-      [onItemsRendered, items, normalizedItems, idGetter, listSizeByLayout]
+      [onItemsRendered, items, normalizedItems, idGetter, listSizeByLayout],
     );
 
     // Effects
@@ -377,7 +376,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
       items,
       normalizedItems,
       listSizeByLayout,
-      idGetter
+      idGetter,
     ]);
 
     return (
@@ -412,7 +411,7 @@ const VirtualizedList: VibeComponent<VirtualizedListProps> = forwardRef(
         </AutoSizer>
       </div>
     );
-  }
+  },
 );
 
 export default VirtualizedList;

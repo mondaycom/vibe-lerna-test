@@ -1,10 +1,10 @@
+import { FC, useMemo } from "react";
 import { camelCase } from "lodash-es";
+import cx from "classnames";
 import { getStyle } from "../../../../helpers/typesciptCssModulesHelper";
 import { ComponentDefaultTestId, getTestId } from "../../../../tests/test-ids-utils";
-import cx from "classnames";
-import React, { FC, useMemo } from "react";
 import { calculatePercentage } from "../LinearProgressBarHelpers";
-import VibeComponentProps from "src/types/VibeComponentProps";
+import { VibeComponentProps } from "../../../../types";
 import { ProgressBarStyle, ProgressBarType } from "../LinearProgressBarConstants";
 import styles from "./Bar.module.scss";
 
@@ -47,11 +47,11 @@ const Bar: FC<BarProps> = ({
   barLabelName,
   id,
   "data-testid": dataTestId,
-  className
+  className,
 }) => {
   const classNames = useMemo(() => {
     return cx(styles.bar, getStyle(styles, camelCase("type__" + type + "--" + barStyle)), className, {
-      [styles.animate]: animated
+      [styles.animate]: animated,
     });
   }, [type, barStyle, animated, className]);
 
@@ -72,7 +72,7 @@ const Bar: FC<BarProps> = ({
       className={classNames}
       style={{
         width: `${valuePercentage}%`,
-        ...(color && { backgroundColor: color })
+        ...(color && { backgroundColor: color }),
       }}
       id={id}
       data-testid={dataTestId || getTestId(ComponentDefaultTestId.BAR, id)}

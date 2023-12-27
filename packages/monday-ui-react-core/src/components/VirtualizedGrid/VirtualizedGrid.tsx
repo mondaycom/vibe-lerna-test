@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from "react";
 import cx from "classnames";
 import { GridChildComponentProps, GridOnScrollProps, ScrollDirection, VariableSizeGrid as Grid } from "react-window";
@@ -14,13 +14,12 @@ import AutoSizer from "react-virtualized-auto-sizer";
 import {
   getNormalizedItems,
   getOnItemsRenderedData,
-  isLayoutDirectionScrollbarVisible
+  isLayoutDirectionScrollbarVisible,
 } from "../../services/virtualized-service";
 import usePrevious from "../../hooks/usePrevious";
 import useThrottledCallback from "../../hooks/useThrottledCallback";
 import useMergeRef from "../../hooks/useMergeRef";
-import VibeComponentProps from "src/types/VibeComponentProps";
-import { VibeComponent } from "../../types";
+import { VibeComponent, VibeComponentProps } from "../../types";
 import { NOOP } from "../../utils/function-utils";
 import { ComponentDefaultTestId, getTestId } from "../../tests/test-ids-utils";
 import styles from "./VirtualizedGrid.module.scss";
@@ -49,7 +48,7 @@ interface VirtualizedGridProps extends VibeComponentProps {
   itemRenderer: (
     item: ItemType,
     index: number,
-    style: CSSProperties
+    style: CSSProperties,
   ) => ItemType | ComponentType<GridChildComponentProps<ItemType>>;
   /**
    * in order to calculate the number of rows to render in the grid, the component needs the height of the row
@@ -84,7 +83,7 @@ interface VirtualizedGridProps extends VibeComponentProps {
     lastItemId,
     centerItemId,
     firstItemOffsetEnd,
-    currentOffsetTop
+    currentOffsetTop,
   }: {
     firstItemId: string;
     secondItemId: string;
@@ -123,9 +122,9 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
       onSizeUpdate = NOOP,
       onVerticalScrollbarVisiblityChange = null,
       scrollableClassName,
-      "data-testid": dataTestId
+      "data-testid": dataTestId,
     },
-    ref
+    ref,
   ) => {
     // states
     const [gridHeight, setGridHeight] = useState(0);
@@ -142,7 +141,7 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
     const animationDataRef = useRef({
       scrollOffsetInitial: 0,
       scrollOffsetFinal: 0,
-      animationStartTime: 0
+      animationStartTime: 0,
     });
     const mergedRef = useMergeRef(ref, componentRef);
 
@@ -157,7 +156,7 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
         }
         return height;
       },
-      [getRowHeight]
+      [getRowHeight],
     );
 
     const idGetter = useCallback(
@@ -168,7 +167,7 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
         }
         return itemId;
       },
-      [getItemId]
+      [getItemId],
     );
 
     // Memos
@@ -202,7 +201,7 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
         }
         onScroll && onScroll(horizontalScrollDirection, scrollTop, scrollUpdateWasRequested);
       },
-      [onScroll, scrollTopRef, animationData]
+      [onScroll, scrollTopRef, animationData],
     );
 
     const cellRenderer = useCallback(
@@ -211,7 +210,7 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
         const item = items[index];
         return itemRenderer(item, index, style);
       },
-      [items, itemRenderer, calcColumnCount]
+      [items, itemRenderer, calcColumnCount],
     );
 
     const updateGridSize = useCallback(
@@ -224,7 +223,7 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
           }, 0);
         }
       },
-      [gridHeight, gridWidth, onSizeUpdate]
+      [gridHeight, gridWidth, onSizeUpdate],
     );
 
     const onItemsRenderedCB = useThrottledCallback(
@@ -237,12 +236,12 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
           visibleStartIndex,
           visibleStopIndex,
           gridHeight,
-          scrollTopRef.current
+          scrollTopRef.current,
         );
         onItemsRendered(data);
       },
       { wait: onItemsRenderedThrottleMs, trailing: true },
-      [onItemsRendered, items, normalizedItems, idGetter, gridHeight]
+      [onItemsRendered, items, normalizedItems, idGetter, gridHeight],
     );
 
     // Effects
@@ -252,7 +251,7 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
         gridRef.current.scrollToItem({
           align: "center",
           columnIndex: scrollToColumnIndex,
-          rowIndex: scrollToRowIndex
+          rowIndex: scrollToRowIndex,
         });
         onScrollToFinished();
       }
@@ -306,7 +305,7 @@ const VirtualizedGrid: VibeComponent<VirtualizedGridProps> = forwardRef(
         </AutoSizer>
       </div>
     );
-  }
+  },
 );
 
 export default VirtualizedGrid;
