@@ -3,7 +3,7 @@ import InformationBox from "../information-box";
 
 const meta: Meta<typeof InformationBox> = {
   component: InformationBox,
-  title: "Components/InformationBox"
+  title: "Components/InformationBox",
 };
 export default meta;
 
@@ -14,6 +14,6 @@ export const Overview: Story = {
     title: "Title",
     component: <img src="/visual-description.png" alt="Example Image" width={100} />,
     description: "This is a description.",
-    href: "/?path=/docs/welcome--docs"
-  }
+    href: "/?path=/docs/welcome--docs",
+  },
 };

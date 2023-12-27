@@ -8,7 +8,7 @@ module.exports = {
   moduleNameMapper: {
     "\\.module\\.scss$": "identity-obj-proxy",
     "^lodash-es(.*)": "<rootDir>/node_modules/lodash$1",
-    "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js",
   },
   modulePathIgnorePatterns: ["<rootDir>/dist", "<rootDir>/build"],
   preset: "ts-jest/presets/default",
@@ -19,6 +19,6 @@ module.exports = {
     "^.+\\.jsx?$": "babel-jest",
     "^.+\\.(tx|tsx)$": "ts-jest",
     "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|svg)$":
-      "<rootDir>/__mocks__/fileMock.js"
-  }
+      "<rootDir>/__mocks__/fileMock.js",
+  },
 };

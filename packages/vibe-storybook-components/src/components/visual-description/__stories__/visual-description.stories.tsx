@@ -3,7 +3,7 @@ import VisualDescription from "../visual-description";
 
 const meta: Meta<typeof VisualDescription> = {
   component: VisualDescription,
-  title: "Components/VisualDescription"
+  title: "Components/VisualDescription",
 };
 export default meta;
 
@@ -17,6 +17,6 @@ export const Overview: Story = {
     description: "This is an example visual description.",
     code: 'const exampleCode = "Hello, world!";',
     className: "",
-    visualDescriptionClassName: ""
-  }
+    visualDescriptionClassName: "",
+  },
 };

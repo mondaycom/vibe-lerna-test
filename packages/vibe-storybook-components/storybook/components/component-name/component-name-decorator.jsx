@@ -7,7 +7,7 @@ const ComponentNameDecorator = ({ children, className, withFoundationBackground 
   return (
     <ComponentName
       className={cx("vibe-storybook-component-name", className, {
-        "vibe-storybook-component-name--foundation": withFoundationBackground
+        "vibe-storybook-component-name--foundation": withFoundationBackground,
       })}
     >
       {children}

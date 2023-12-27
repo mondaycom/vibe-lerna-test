@@ -120,7 +120,7 @@ const MemoryStats = function () {
       }
 
       updateGraph(msGraph, GRAPH_HEIGHT - mbValue * (GRAPH_HEIGHT / redrawMBThreshold), color);
-    }
+    },
   };
 };
 

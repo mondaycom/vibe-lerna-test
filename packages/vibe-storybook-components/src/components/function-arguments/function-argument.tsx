@@ -17,7 +17,7 @@ const FunctionArgument: FC<FunctionArgumentProps> = ({
   type,
   description,
   default: defaultValue,
-  required
+  required,
 }) => (
   <li className={classes.argument}>
     {name && <code className={classes["argument-name"]}>{name}</code>}

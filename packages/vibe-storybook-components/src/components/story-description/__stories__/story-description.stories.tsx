@@ -5,7 +5,7 @@ import { FlexJustify } from "../../../helpers/components/Flex/FlexConstants";
 
 const meta: Meta<typeof StoryDescription> = {
   component: StoryDescription,
-  title: "Components/StoryDescription"
+  title: "Components/StoryDescription",
 };
 export default meta;
 
@@ -15,6 +15,6 @@ export const Overview: Story = {
   args: {
     description: "Deprecated",
     children: <StatusTag type="deprecated" />,
-    justify: FlexJustify.CENTER
-  }
+    justify: FlexJustify.CENTER,
+  },
 };

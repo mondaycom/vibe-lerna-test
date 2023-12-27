@@ -6,15 +6,15 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-themes",
-    "@storybook/preset-scss"
+    "@storybook/preset-scss",
   ],
   framework: {
     name: "@storybook/react-webpack5",
-    options: {}
+    options: {},
   },
   docs: {
-    autodocs: true
+    autodocs: true,
   },
-  staticDirs: ["../public"]
+  staticDirs: ["../public"],
 };
 export default config;

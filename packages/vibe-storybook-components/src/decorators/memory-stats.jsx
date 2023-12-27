@@ -3,7 +3,7 @@ import { startMemoryStats, stopMemoryStats } from "../functions/memory-stats";
 
 export function withMemoryStats(Story, options) {
   const {
-    globals: { memoryStats }
+    globals: { memoryStats },
   } = options;
   if (memoryStats === "yes") {
     startMemoryStats();

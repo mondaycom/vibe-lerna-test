@@ -16,7 +16,7 @@ const UsageGuidelines: React.FC<UsageGuidelinesProps> = ({ guidelines = [] }) =>
           <span>{guideline}</span>
         </span>
       )),
-    [guidelines]
+    [guidelines],
   );
 
   return <article className={styles.usageGuidelines}>{guidelinesElements}</article>;

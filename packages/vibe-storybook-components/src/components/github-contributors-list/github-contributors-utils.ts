@@ -3,7 +3,7 @@ import { GithubContributorResponse } from "./github-contributors-types";
 export async function fetchContributors(
   organizationName: string,
   packageName: string,
-  page: number
+  page: number,
 ): Promise<GithubContributorResponse[]> {
   try {
     const request = await fetch(
@@ -11,9 +11,9 @@ export async function fetchContributors(
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/json"
-        }
-      }
+          "Content-Type": "application/json",
+        },
+      },
     );
 
     const contributors = await request.json();

@@ -29,5 +29,5 @@ const Tip: React.FC<TipProps> & {
 };
 
 export default withStaticProps(Tip, {
-  types: TipTypes
+  types: TipTypes,
 });

@@ -31,11 +31,11 @@ const StoryDescription: FC<StoryDescriptionProps> & {
   align,
   justify = StoryDescription.justify?.START,
   headerAlign,
-  headerJustify
+  headerJustify,
 }) => {
   const direction = useMemo(
     () => (vertical ? StoryDescription.directions?.COLUMN : StoryDescription.directions?.ROW),
-    [vertical]
+    [vertical],
   );
 
   return (
@@ -63,5 +63,5 @@ export default withStaticProps(StoryDescription, {
   justify: FlexJustify,
   align: FlexAlign,
   gaps: FlexGap,
-  directions: FlexDirection
+  directions: FlexDirection,
 });

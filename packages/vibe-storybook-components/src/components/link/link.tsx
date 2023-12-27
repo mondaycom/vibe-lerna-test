@@ -20,7 +20,7 @@ const Link: FC<LinkProps> & { sizes?: typeof LinkSize; targets?: typeof LinkTarg
   size = Link.sizes?.MEDIUM,
   withoutSpacing = false,
   target = Link.targets?.NEW_WINDOW,
-  className
+  className,
 }) => (
   <CoreLink
     text={children}
@@ -29,7 +29,7 @@ const Link: FC<LinkProps> & { sizes?: typeof LinkSize; targets?: typeof LinkTarg
     className={cx(styles.compsLink, className, {
       [styles.small]: size === Link.sizes?.SMALL,
       [styles.medium]: size === Link.sizes?.MEDIUM,
-      [styles.withSpacing]: !withoutSpacing
+      [styles.withSpacing]: !withoutSpacing,
     })}
   />
 );

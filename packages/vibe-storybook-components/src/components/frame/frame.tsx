@@ -14,7 +14,7 @@ const Frame: FC<FrameProps> = ({ children, className, noGutter = false, noBorder
   <div
     className={cx(styles.frame, className, {
       [styles.noGutter]: noGutter,
-      [styles.noBorder]: noBorder
+      [styles.noBorder]: noBorder,
     })}
   >
     {children}

@@ -36,5 +36,5 @@ const resolve = (source, file, _config) => {
 
 module.exports = {
   interfaceVersion: 2,
-  resolve
+  resolve,
 };

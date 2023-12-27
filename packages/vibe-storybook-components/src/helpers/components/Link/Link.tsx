@@ -51,9 +51,9 @@ const Link: VibeComponent<LinkProps, HTMLAnchorElement> & {
       ariaLabeledBy = "",
       disableNavigation = false,
       inheritFontSize = false,
-      inlineText = false
+      inlineText = false,
     },
-    ref: React.ForwardedRef<HTMLAnchorElement>
+    ref: React.ForwardedRef<HTMLAnchorElement>,
   ) => {
     const onClickWrapper = useCallback(
       (e: React.MouseEvent<HTMLElement>) => {
@@ -62,7 +62,7 @@ const Link: VibeComponent<LinkProps, HTMLAnchorElement> & {
         }
         onClick && onClick(e);
       },
-      [disableNavigation, onClick]
+      [disableNavigation, onClick],
     );
 
     return (
@@ -75,7 +75,7 @@ const Link: VibeComponent<LinkProps, HTMLAnchorElement> & {
         target={target}
         className={cx(styles.link, className, {
           [styles.inheritFontSize]: inheritFontSize,
-          [styles.inlineText]: inlineText
+          [styles.inlineText]: inlineText,
         })}
         aria-label={ariaLabelDescription}
         aria-labelledby={ariaLabeledBy}
@@ -83,10 +83,10 @@ const Link: VibeComponent<LinkProps, HTMLAnchorElement> & {
         <span className={cx(styles.text, textClassName)}>{text}</span>
       </a>
     );
-  }
+  },
 );
 
 export default withStaticProps(Link, {
   target: LinkTarget,
-  targets: LinkTarget
+  targets: LinkTarget,
 });

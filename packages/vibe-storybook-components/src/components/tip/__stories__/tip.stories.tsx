@@ -5,7 +5,7 @@ import Link from "../../../helpers/components/Link/Link";
 
 const meta: Meta<typeof Tip> = {
   component: Tip,
-  title: "Components/Tip"
+  title: "Components/Tip",
 };
 export default meta;
 
@@ -18,16 +18,16 @@ export const Overview: Story = {
         This tip shows some helpful information. It can also show <Link text="links" href="#" inlineText /> to more
         information
       </>
-    )
-  }
+    ),
+  },
 };
 
 export const Emoji: Story = {
   args: {
     title: "Completed",
     children: "This tip shows some helpful information.",
-    emoji: "✅"
-  }
+    emoji: "✅",
+  },
 };
 
 export const Types: Story = {
@@ -39,5 +39,5 @@ export const Types: Story = {
       <Tip type={Tip.types.DANGER}>This is a danger tip.</Tip>
       <Tip type={Tip.types.DARK}>This is a dark tip.</Tip>
     </Flex>
-  )
+  ),
 };
