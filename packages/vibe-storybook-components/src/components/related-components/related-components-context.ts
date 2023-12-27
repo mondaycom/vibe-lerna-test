@@ -6,5 +6,5 @@ type RelatedComponentsContextType = {
 };
 
 export const RelatedComponentsContext = React.createContext<RelatedComponentsContextType>({
-  linkTarget: LinkTarget.NEW_WINDOW
+  linkTarget: LinkTarget.NEW_WINDOW,
 });

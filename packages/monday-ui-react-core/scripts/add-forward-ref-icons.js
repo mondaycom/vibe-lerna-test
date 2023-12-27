@@ -40,5 +40,5 @@ readFiles(
   },
   function (err) {
     throw err;
-  }
+  },
 );

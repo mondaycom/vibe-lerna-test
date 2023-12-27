@@ -31,7 +31,7 @@ const Desktop = ({ size, ...props }) => (
 );
 Desktop.displayName = "Desktop";
 Desktop.propTypes = {
-  size: PropTypes.string
+  size: PropTypes.string,
 };
 export default Desktop;
 /* tslint:enable */

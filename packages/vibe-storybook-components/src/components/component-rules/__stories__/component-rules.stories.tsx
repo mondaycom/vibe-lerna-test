@@ -4,7 +4,7 @@ import ComponentName from "../../component-name/component-name";
 
 const meta: Meta<typeof ComponentRules> = {
   component: ComponentRules,
-  title: "Components/ComponentRules"
+  title: "Components/ComponentRules",
 };
 export default meta;
 
@@ -16,13 +16,13 @@ export const Overview: Story = {
       {
         positive: {
           component: <ComponentName className="">Hello world</ComponentName>,
-          description: "Always capitalize the first letter of the first word in the heading."
+          description: "Always capitalize the first letter of the first word in the heading.",
         },
         negative: {
           component: <ComponentName className="">Hello World</ComponentName>,
-          description: "Please avoid capitalizing the first letter of each word in the heading."
-        }
-      }
-    ]
-  }
+          description: "Please avoid capitalizing the first letter of each word in the heading.",
+        },
+      },
+    ],
+  },
 };

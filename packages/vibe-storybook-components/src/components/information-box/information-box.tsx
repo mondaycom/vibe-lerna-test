@@ -17,7 +17,7 @@ const InformationBox: FC<InformationBoxProps> & { linkTargets?: typeof LinkTarge
   title = "",
   description = "",
   href,
-  linkTarget
+  linkTarget,
 }) => {
   const overrideTitle =
     typeof title === "string" ? (

@@ -20,7 +20,7 @@ export default {
     indent: false,
     strict: false,
     exports: "named",
-    preserveModules: true
+    preserveModules: true,
   },
   input: path.join(SRC_PATH, "index.ts"),
   external: [/node_modules/],
@@ -29,37 +29,37 @@ export default {
     commonjs(),
     json(),
     nodeResolve({
-      extensions: [...EXTENSIONS, ".json", ".css"]
+      extensions: [...EXTENSIONS, ".json", ".css"],
     }),
     typescript({
-      tsconfig: path.join(ROOT_PATH, "tsconfig.json")
+      tsconfig: path.join(ROOT_PATH, "tsconfig.json"),
     }),
     babel({
       babelHelpers: "bundled",
       presets: ["@babel/preset-react"],
-      extensions: EXTENSIONS
+      extensions: EXTENSIONS,
     }),
     terser({
       compress: {
         pure_getters: true,
         unsafe: true,
-        unsafe_comps: true
-      }
+        unsafe_comps: true,
+      },
     }),
     postcss({
       use: [
         [
           "sass",
           {
-            includePaths: ["src"]
-          }
-        ]
+            includePaths: ["src"],
+          },
+        ],
       ],
       extensions: [".css", ".scss"],
       extract: true,
       minimize: true,
       plugins: [autoprefixer()],
-      autoModules: true
-    })
-  ]
+      autoModules: true,
+    }),
+  ],
 };

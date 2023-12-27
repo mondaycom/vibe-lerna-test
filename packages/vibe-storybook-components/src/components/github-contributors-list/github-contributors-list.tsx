@@ -19,7 +19,7 @@ const GithubContributorsList: FC<GithubContributorsListProps> = ({
   excludedContributorsIds = new Set(),
   staticContributors = [],
   text = "Thanks to all of our contributors: ",
-  showContributionAmount = false
+  showContributionAmount = false,
 }) => {
   const [contributorsJson, setContributorsJson] = useState<GithubContributorResponse[]>([]);
   useEffect(() => {
@@ -37,8 +37,8 @@ const GithubContributorsList: FC<GithubContributorsListProps> = ({
             name: contributor.login,
             href: contributor.html_url,
             key: contributor.id.toString(),
-            contributions: contributor.contributions
-          }) as GithubContributor
+            contributions: contributor.contributions,
+          }) as GithubContributor,
       );
     const contributorsData = staticContributors.concat(developerContributors);
     return <ContributorsList contributorsData={contributorsData} showContributionAmount={showContributionAmount} />;

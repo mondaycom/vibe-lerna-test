@@ -36,7 +36,7 @@ function createMappedActionToInputPropDecorator(actionName: string, linkedToProp
         setPropValue(newPropValue);
         createAction(newPropValue);
       },
-      [setPropValue, createAction]
+      [setPropValue, createAction],
     );
 
     context.args[actionName] = injectedCallback;
@@ -53,7 +53,7 @@ export function createStoryMetaSettings({
   actionPropsArray,
   iconsMetaData,
   allIconsComponents,
-  ignoreControlsPropNamesArray
+  ignoreControlsPropNamesArray,
 }: StoryMetaSettingsArgs): StoryMetaSettingsResult {
   const argTypes: ArgTypes = {};
   const decorators: Decorator[] = [];
@@ -65,7 +65,7 @@ export function createStoryMetaSettings({
 
       return acc;
     },
-    { options: [], mapping: {} }
+    { options: [], mapping: {} },
   );
 
   // set enum allowed values inside argsTypes object
@@ -90,9 +90,9 @@ export function createStoryMetaSettings({
           type: {
             summary: parseStringForEnums(componentName, enumName, enums),
             // For not displaying box for enumns in controls of js not converted components
-            detail: null
-          }
-        }
+            detail: null,
+          },
+        },
       };
     }
   });
@@ -103,8 +103,8 @@ export function createStoryMetaSettings({
       options: allowedIcons?.options,
       mapping: allowedIcons?.mapping,
       control: {
-        type: "select"
-      }
+        type: "select",
+      },
     };
   });
 

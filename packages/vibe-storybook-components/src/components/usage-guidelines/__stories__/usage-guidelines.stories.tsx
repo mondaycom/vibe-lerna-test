@@ -5,7 +5,7 @@ import React from "react";
 
 const meta: Meta<typeof UsageGuidelines> = {
   component: UsageGuidelines,
-  title: "Components/UsageGuidelines"
+  title: "Components/UsageGuidelines",
 };
 export default meta;
 
@@ -20,7 +20,7 @@ export const Overview: Story = {
       </>,
       <>
         Usage guideline #3 -<Link href="/?path=/docs/welcome--docs">with link</Link>
-      </>
-    ]
-  }
+      </>,
+    ],
+  },
 };

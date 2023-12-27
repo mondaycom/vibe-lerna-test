@@ -10,7 +10,7 @@ interface SectionNameProps extends React.HTMLAttributes<HTMLHeadingElement> {
 const SectionName: React.FC<SectionNameProps> = ({ className, children, ...props }) => {
   const id = useMemo(
     () => children.toLowerCase().replaceAll("’", "").replaceAll("'", "").split(" ").join("-"),
-    [children]
+    [children],
   );
 
   return (

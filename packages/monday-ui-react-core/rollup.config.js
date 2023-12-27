@@ -62,34 +62,34 @@ export default {
     format: "es",
     preserveModules: true,
     preserveModulesRoot: ".",
-    sourcemap: true
+    sourcemap: true,
   },
   input: {
     index: path.join(SRC_PATH, "index.js"),
     icons: path.join(SRC_PATH, "components/Icon/Icons/index.ts"),
     interactionsTests: path.join(SRC_PATH, "tests/interactions-utils.ts"),
     testIds: path.join(SRC_PATH, "tests/test-ids-utils.ts"),
-    next: path.join(SRC_PATH, "next/next.ts")
+    next: path.join(SRC_PATH, "next/next.ts"),
   },
   external: [/node_modules/],
   plugins: [
     commonjs(),
     nodeResolve({
-      extensions: [...EXTENSIONS, ".json", ".css"]
+      extensions: [...EXTENSIONS, ".json", ".css"],
     }),
     typescript({
-      tsconfig: path.join(PACKAGE_ROOT, "tsconfig.esm.json")
+      tsconfig: path.join(PACKAGE_ROOT, "tsconfig.esm.json"),
     }),
     babel({
       babelHelpers: "bundled",
-      extensions: EXTENSIONS
+      extensions: EXTENSIONS,
     }),
     terser({
       compress: {
         pure_getters: true,
         unsafe: true,
-        unsafe_comps: true
-      }
+        unsafe_comps: true,
+      },
     }),
     postcss({
       /**
@@ -116,8 +116,8 @@ export default {
         generateScopedName: (name, filename, css) =>
           shouldMockModularClassnames
             ? generateCssModulesMockName(name)
-            : generateCssModulesScopedName(name, filename, css)
-      }
-    })
-  ]
+            : generateCssModulesScopedName(name, filename, css),
+      },
+    }),
+  ],
 };

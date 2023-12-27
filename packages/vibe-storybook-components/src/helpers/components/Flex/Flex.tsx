@@ -43,7 +43,7 @@ const Flex: React.FC<FlexProps> & {
   ariaLabelledby,
   ariaLabel,
   tabIndex,
-  "data-testid": dataTestId
+  "data-testid": dataTestId,
 }) => {
   const overrideStyle = useMemo(() => ({ ...style, gap: `${gap}px` }), [style, gap]);
   const onClickProps = useMemo(() => {
@@ -65,8 +65,8 @@ const Flex: React.FC<FlexProps> & {
         getStyle(styles, `align${align}`),
         className,
         {
-          [styles.wrap]: wrap
-        }
+          [styles.wrap]: wrap,
+        },
       )}
       tabIndex={tabIndex}
       onClick={onClick}
@@ -82,5 +82,5 @@ export default withStaticProps(Flex, {
   justify: FlexJustify,
   align: FlexAlign,
   gaps: FlexGap,
-  directions: FlexDirection
+  directions: FlexDirection,
 });

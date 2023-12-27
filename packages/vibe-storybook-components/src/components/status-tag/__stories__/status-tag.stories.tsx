@@ -4,7 +4,7 @@ import Flex from "../../../helpers/components/Flex/Flex";
 
 const meta: Meta<typeof StatusTag> = {
   component: StatusTag,
-  title: "Components/StatusTag"
+  title: "Components/StatusTag",
 };
 export default meta;
 
@@ -12,8 +12,8 @@ type Story = StoryObj<typeof StatusTag>;
 
 export const Overview: Story = {
   args: {
-    type: "beta"
-  }
+    type: "beta",
+  },
 };
 
 export const Types: Story = {
@@ -22,5 +22,5 @@ export const Types: Story = {
       <StatusTag type="beta" />
       <StatusTag type="deprecated" />
     </Flex>
-  )
+  ),
 };

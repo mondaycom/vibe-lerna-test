@@ -13,7 +13,7 @@ const ColorDescription: FC<ColorDescriptionProps> = ({ colorName, description, w
   const color = (
     <div
       className={cx(styles.colorDescription, {
-        [styles.withBorder]: withBorder
+        [styles.withBorder]: withBorder,
       })}
       style={{ backgroundColor: `var(--${colorName})` }}
     />

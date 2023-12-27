@@ -19,7 +19,7 @@ const VisualDescription: React.FC<VisualDescriptionProps> = ({
   description,
   code,
   className,
-  visualDescriptionClassName
+  visualDescriptionClassName,
 }) => (
   <div className={cx(styles.visualDescription, className)} aria-label={ariaLabel}>
     <figure className={cx(styles.visualDescriptionVisual, visualDescriptionClassName)} aria-hidden>

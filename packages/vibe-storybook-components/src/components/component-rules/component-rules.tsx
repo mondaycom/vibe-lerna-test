@@ -45,7 +45,7 @@ const ComponentRules: React.FC<ComponentRulesProps> = ({ rules = [], className }
           </section>
         );
       }),
-    [className, rules]
+    [className, rules],
   );
 
   return <article className={styles.componentRules}>{componentRulesElements}</article>;

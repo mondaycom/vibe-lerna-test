@@ -9,17 +9,17 @@ const packageSpecificRules = {
     "error",
     {
       required: {
-        some: ["nesting", "id"]
+        some: ["nesting", "id"],
       },
-      handlers: ["onClick", "onMouseDown", "onMouseUp", "onKeyPress", "onKeyDown", "onKeyUp"]
-    }
+      handlers: ["onClick", "onMouseDown", "onMouseUp", "onKeyPress", "onKeyDown", "onKeyUp"],
+    },
   ],
   "jsx-a11y/role-has-required-aria-props": "error",
   "jsx-a11y/click-events-have-key-events": "error",
   "jsx-a11y/label-has-associated-control": "off",
   "jsx-a11y/aria-activedescendant-has-tabindex": "error",
   "jsx-a11y/interactive-supports-focus": "error",
-  "jsx-a11y/no-noninteractive-tabindex": "error"
+  "jsx-a11y/no-noninteractive-tabindex": "error",
 };
 const packageSpecificPlugins = ["lodash", "jsx-a11y"];
 const packageSpecificExtends = [];
@@ -28,6 +28,6 @@ module.exports = {
   extends: ["../../.eslintrc.js", ...packageSpecificExtends],
   plugins: [...packageSpecificPlugins],
   rules: {
-    ...packageSpecificRules
-  }
+    ...packageSpecificRules,
+  },
 };

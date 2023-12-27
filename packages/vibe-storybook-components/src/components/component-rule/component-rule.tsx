@@ -19,7 +19,7 @@ const ComponentRule: React.FC<ComponentRuleProps> = ({
   description = "",
   isRecommended = false,
   className,
-  componentContainerClassName
+  componentContainerClassName,
 }) => {
   const titleIcon = isRecommended ? <Check className={styles.icon} /> : <CloseSmall className={styles.icon} />;
   const title = isRecommended ? RECOMMENDED_TITLE : NOT_RECOMMENDED_TITLE;
@@ -30,9 +30,9 @@ const ComponentRule: React.FC<ComponentRuleProps> = ({
         styles.componentRule,
         {
           [styles.recommended]: isRecommended,
-          [styles.notRecommended]: !isRecommended
+          [styles.notRecommended]: !isRecommended,
         },
-        className
+        className,
       )}
     >
       <figure className={cx(styles.component, componentContainerClassName)}>{component}</figure>

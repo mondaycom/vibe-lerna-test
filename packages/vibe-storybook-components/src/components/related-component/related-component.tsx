@@ -18,7 +18,7 @@ const RelatedComponent: React.FC<RelatedComponentProps> & { linkTargets?: typeof
   title = "",
   description = "",
   href,
-  linkTarget
+  linkTarget,
 }) => {
   const contextLinkTarget = useContext(RelatedComponentsContext)?.linkTarget;
   const overrideLinkTarget = linkTarget || contextLinkTarget;

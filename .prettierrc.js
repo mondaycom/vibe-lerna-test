@@ -1,6 +1,6 @@
 const config = {
   printWidth: 120,
-  trailingComma: "none",
+  trailingComma: "all",
   arrowParens: "avoid"
 };
 

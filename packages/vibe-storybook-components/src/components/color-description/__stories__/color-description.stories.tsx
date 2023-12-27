@@ -3,7 +3,7 @@ import ColorDescription from "../color-description";
 
 const meta: Meta<typeof ColorDescription> = {
   component: ColorDescription,
-  title: "Components/ColorDescription"
+  title: "Components/ColorDescription",
 };
 export default meta;
 
@@ -13,6 +13,6 @@ export const Overview: Story = {
   args: {
     colorName: "sb-positive-color",
     description: "This is a description",
-    withBorder: false
-  }
+    withBorder: false,
+  },
 };
