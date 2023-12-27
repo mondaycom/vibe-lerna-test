@@ -13,9 +13,9 @@ import {
   Title,
   UnstyledList,
   UnstyledListItem,
-  UsageGuidelines
+  UsageGuidelines,
 } from "vibe-storybook-components";
-import { withThemeByClassName } from '@storybook/addon-themes';
+import { withThemeByClassName } from "@storybook/addon-themes";
 import { ComponentNameDecorator, RelatedComponentsDecorator } from "../storybook/components";
 import { DocsContainer, DocsPage, Unstyled } from "@storybook/blocks";
 import "vibe-storybook-components/index.css";
@@ -51,14 +51,14 @@ const preview: Preview = {
         RelatedComponents: RelatedComponentsDecorator,
         Frame,
         UnstyledList,
-        UnstyledListItem
-      }
+        UnstyledListItem,
+      },
     },
     options: {
       storySort: {
-        order: ["Welcome", "*"]
-      }
-    }
+        order: ["Welcome", "*"],
+      },
+    },
   },
   decorators: [
     withThemeByClassName({
@@ -66,11 +66,11 @@ const preview: Preview = {
         Light: "light-app-theme",
         Dark: "dark-app-theme",
         Black: "black-app-theme",
-        Hacker: "hacker_theme-app-theme"
+        Hacker: "hacker_theme-app-theme",
       },
-      defaultTheme: "Light"
-    }) as any
-  ]
+      defaultTheme: "Light",
+    }) as any,
+  ],
 };
 
 export default preview;

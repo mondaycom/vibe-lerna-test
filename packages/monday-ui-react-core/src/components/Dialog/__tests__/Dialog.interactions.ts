@@ -5,16 +5,16 @@ import {
   CLICK_OUTSIDE_DIALOG,
   CLICK_OUTSIDE_DIALOG_BUTTON,
   CONTEXT_MENU_DIALOG,
-  HIDE_TRIGGERS_CONTAINER
+  HIDE_TRIGGERS_CONTAINER,
 } from "./DialogDataTestIds";
 import { resetFocus } from "../../../__tests__/interactions-helper";
 import { Canvas, getByTestId, InteractionSuite, interactionSuite } from "../../../tests/interactions-utils";
 
 const isDialogHiddenAfterClickOutside = createTestIfDialogHiddenAfterTrigger(CLICK_OUTSIDE_DIALOG, () =>
-  userEvent.click(getDialogContainer())
+  userEvent.click(getDialogContainer()),
 );
 const isDialogHiddenAfterContextMenu = createTestIfDialogHiddenAfterTrigger(CONTEXT_MENU_DIALOG, () =>
-  fireEvent.contextMenu(getDialogContainer())
+  fireEvent.contextMenu(getDialogContainer()),
 );
 
 export const closeTriggersInteractionSuite: InteractionSuite = interactionSuite({
@@ -31,12 +31,12 @@ export const closeTriggersInteractionSuite: InteractionSuite = interactionSuite(
         const dialog = await getDialogElement(canvas, CLICK_OUTSIDE_DIALOG);
         expect(dialog).toBeInTheDocument();
       },
-      { timeout: 100 }
+      { timeout: 100 },
     );
   },
   afterEach: async () => {
     await resetFocus();
-  }
+  },
 });
 
 function getDialogContainer() {
@@ -53,7 +53,7 @@ async function checkIfDialogHidden(dialogElement: HTMLElement) {
 
 function createTestIfDialogHiddenAfterTrigger(
   dataTestId: string,
-  triggerCallback: (canvas: Screen, element: HTMLElement) => void
+  triggerCallback: (canvas: Screen, element: HTMLElement) => void,
 ) {
   return async function (canvas: Screen) {
     const dialog = await getDialogElement(canvas, dataTestId);

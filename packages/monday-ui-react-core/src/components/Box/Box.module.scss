@@ -4,10 +4,9 @@
 // Utilities map
 @import "../../styles/utilities/utilities-settings";
 
-.box{
+.box {
   overflow: hidden;
 }
 
 // Generating Utility class locally for Box component
 @include utility-class-factory($utilities-modules, $export: "modules");
-

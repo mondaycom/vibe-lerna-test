@@ -42,7 +42,7 @@ import {
   Rounded,
   SHADOW,
   Shadow,
-  DISABLED
+  DISABLED,
 } from "./BoxConstants";
 import { ValueOf, VibeComponent, VibeComponentProps, withStaticProps } from "../../types";
 import styles from "./Box.module.scss";
@@ -121,9 +121,9 @@ const Box: VibeComponent<BoxProps> & {
       paddingBottom,
       paddingStart,
       textColor,
-      backgroundColor
+      backgroundColor,
     },
-    ref
+    ref,
   ) => {
     const componentRef = useRef(null);
     const mergedRef = useMergeRef(ref, componentRef);
@@ -154,13 +154,13 @@ const Box: VibeComponent<BoxProps> & {
           paddingBottom,
           paddingStart,
           textColor,
-          backgroundColor
+          backgroundColor,
         ),
-        id: id
+        id: id,
       },
-      children
+      children,
     );
-  }
+  },
 );
 
 export default withStaticProps(Box, {
@@ -183,5 +183,5 @@ export default withStaticProps(Box, {
   paddingBottoms: PADDING_BOTTOM,
   paddingStarts: PADDING_START,
   backgroundColors: BACKGROUND_COLORS,
-  textColors: COLORS
+  textColors: COLORS,
 });
