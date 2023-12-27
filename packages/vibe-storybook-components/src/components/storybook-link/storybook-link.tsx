@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from 'react';
-import Link from '../link/link';
-import { hrefTo } from '@storybook/addon-links';
-import { LinkSize } from '../link/LinkConstants';
-import { withStaticProps } from '../../types';
+import { FC, useEffect, useState } from "react";
+import Link from "../link/link";
+import { hrefTo } from "@storybook/addon-links";
+import { LinkSize } from "../link/LinkConstants";
+import { withStaticProps } from "../../types";
 
 interface StorybookLinkProps {
   page: string;
@@ -11,8 +11,8 @@ interface StorybookLinkProps {
   size?: LinkSize;
 }
 
-const StorybookLink: FC<StorybookLinkProps> & { sizes?: typeof LinkSize } = ({ page, story = '', children, size }) => {
-  const [url, setUrl] = useState('');
+const StorybookLink: FC<StorybookLinkProps> & { sizes?: typeof LinkSize } = ({ page, story = "", children, size }) => {
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     fetchLink();
@@ -20,7 +20,7 @@ const StorybookLink: FC<StorybookLinkProps> & { sizes?: typeof LinkSize } = ({ p
       const href = await hrefTo(page, story);
       setUrl(href);
     }
-  }, []);
+  }, [page, story]);
 
   return (
     <Link href={url} target={Link.targets.TOP} withoutSpacing size={size}>

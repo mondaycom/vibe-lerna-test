@@ -81,7 +81,9 @@
 .fadeEnterActive {
   position: relative;
   opacity: 1;
-  transition: transform var(--motion-productive-long) var(--motion-timing-enter), opacity var(--motion-productive-short);
+  transition:
+    transform var(--motion-productive-long) var(--motion-timing-enter),
+    opacity var(--motion-productive-short);
   transform: translateY(0);
 }
 
@@ -97,5 +99,7 @@
   position: relative;
   opacity: 0;
   transform: translateY(-15px);
-  transition: transform var(--motion-productive-long) var(--motion-timing-exit), opacity var(--motion-productive-short);
+  transition:
+    transform var(--motion-productive-long) var(--motion-timing-exit),
+    opacity var(--motion-productive-short);
 }

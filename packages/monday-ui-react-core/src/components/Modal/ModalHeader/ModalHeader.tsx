@@ -3,11 +3,10 @@ import cx from "classnames";
 import IconButton from "../../IconButton/IconButton";
 import CloseSmall from "../../Icon/Icons/components/CloseSmall";
 import Icon, { IconSubComponentProps } from "../../Icon/Icon";
-import VibeComponentProps from "../../../types/VibeComponentProps";
 import { NOOP } from "../../../utils/function-utils";
-import { ElementContent } from "src/types/ElementContent";
 import { getTestId } from "../../../tests/test-ids-utils";
 import { ComponentDefaultTestId } from "../../../tests/constants";
+import { ElementContent, VibeComponentProps } from "../../../types";
 import Text from "../../Text/Text";
 import Heading from "../../Heading/Heading";
 import Flex from "../../Flex/Flex";
@@ -84,7 +83,7 @@ const ModalHeader: FC<ModalHeaderProps> = ({
   hideCloseButton,
   closeButtonAriaLabel = "close",
   id,
-  "data-testid": dataTestId
+  "data-testid": dataTestId,
 }) => {
   return (
     <div
@@ -131,7 +130,7 @@ const ModalHeader: FC<ModalHeaderProps> = ({
 };
 
 Object.assign(ModalHeader, {
-  displayName: "ModalHeader"
+  displayName: "ModalHeader",
 });
 
 export default ModalHeader;
