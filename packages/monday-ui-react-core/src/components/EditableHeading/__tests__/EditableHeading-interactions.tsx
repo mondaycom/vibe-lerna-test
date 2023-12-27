@@ -8,7 +8,7 @@ import {
   interactionSuite,
   InteractionSuite,
   typeText,
-  delay
+  delay,
 } from "../../../tests/interactions-utils";
 import { ComponentDefaultTestId } from "../../../tests/constants";
 import { resetFocus } from "../../../__tests__/interactions-helper";
@@ -86,5 +86,5 @@ async function cancelEditing(canvas: Canvas) {
 }
 
 export const overviewPlaySuite: InteractionSuite = interactionSuite({
-  tests: [changeModes, editAndChangeToValidText, clearInput, cancelEditing]
+  tests: [changeModes, editAndChangeToValidText, clearInput, cancelEditing],
 });

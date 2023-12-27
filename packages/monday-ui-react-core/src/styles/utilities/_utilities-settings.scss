@@ -4,19 +4,19 @@ $utilities-modules: (
   "opacity": (
     property: opacity,
     values: (
-      disabled: var(--disabled-component-opacity)
-    )
+      disabled: var(--disabled-component-opacity),
+    ),
   ),
   "border": (
     property: border,
     values: (
-      null: var(--border-width) var(--border-style) var(--ui-border-color)
-    )
+      null: var(--border-width) var(--border-style) var(--ui-border-color),
+    ),
   ),
   "borderColor": (
     property: border-color,
     class: borderColor,
-    values: $utility-border-colors-vars
+    values: $utility-border-colors-vars,
   ),
   "rounded": (
     property: border-radius,
@@ -25,8 +25,8 @@ $utilities-modules: (
       0: 0,
       small: var(--border-radius-small),
       medium: var(--border-radius-medium),
-      big: var(--border-radius-big)
-    )
+      big: var(--border-radius-big),
+    ),
   ),
   "shadow": (
     property: box-shadow,
@@ -35,8 +35,8 @@ $utilities-modules: (
       xs: var(--box-shadow-xs),
       small: var(--box-shadow-small),
       medium: var(--box-shadow-medium),
-      large: var(--box-shadow-large)
-    )
+      large: var(--box-shadow-large),
+    ),
   ),
   "margin": (
     property: margin,
@@ -45,9 +45,9 @@ $utilities-modules: (
       map.merge(
         $utility-spacing-vars,
         (
-          auto: auto
+          auto: auto,
         )
-      )
+      ),
   ),
   "marginX": (
     property: margin-right margin-left,
@@ -56,9 +56,9 @@ $utilities-modules: (
       map.merge(
         $utility-spacing-vars,
         (
-          auto: auto
+          auto: auto,
         )
-      )
+      ),
   ),
   "marginY": (
     property: margin-top margin-bottom,
@@ -67,9 +67,9 @@ $utilities-modules: (
       map.merge(
         $utility-spacing-vars,
         (
-          auto: auto
+          auto: auto,
         )
-      )
+      ),
   ),
   "marginTop": (
     property: margin-top,
@@ -78,9 +78,9 @@ $utilities-modules: (
       map.merge(
         $utility-spacing-vars,
         (
-          auto: auto
+          auto: auto,
         )
-      )
+      ),
   ),
   "marginEnd": (
     property: margin-inline-end,
@@ -89,9 +89,9 @@ $utilities-modules: (
       map.merge(
         $utility-spacing-vars,
         (
-          auto: auto
+          auto: auto,
         )
-      )
+      ),
   ),
   "marginBottom": (
     property: margin-bottom,
@@ -100,9 +100,9 @@ $utilities-modules: (
       map.merge(
         $utility-spacing-vars,
         (
-          auto: auto
+          auto: auto,
         )
-      )
+      ),
   ),
   "marginStart": (
     property: margin-inline-start,
@@ -111,53 +111,53 @@ $utilities-modules: (
       map.merge(
         $utility-spacing-vars,
         (
-          auto: auto
+          auto: auto,
         )
-      )
+      ),
   ),
   "padding": (
     property: padding,
     class: p,
-    values: $utility-spacing-vars
+    values: $utility-spacing-vars,
   ),
   "paddingX": (
     property: padding-right padding-left,
     class: px,
-    values: $utility-spacing-vars
+    values: $utility-spacing-vars,
   ),
   "paddingY": (
     property: padding-top padding-bottom,
     class: py,
-    values: $utility-spacing-vars
+    values: $utility-spacing-vars,
   ),
   "paddingTop": (
     property: padding-top,
     class: pt,
-    values: $utility-spacing-vars
+    values: $utility-spacing-vars,
   ),
   "paddingEnd": (
     property: padding-inline-end,
     class: pe,
-    values: $utility-spacing-vars
+    values: $utility-spacing-vars,
   ),
   "paddingBottom": (
     property: padding-bottom,
     class: pb,
-    values: $utility-spacing-vars
+    values: $utility-spacing-vars,
   ),
   "paddingStart": (
     property: padding-inline-start,
     class: ps,
-    values: $utility-spacing-vars
+    values: $utility-spacing-vars,
   ),
   "color": (
     property: color,
     class: text,
-    values: $utility-colors-vars
+    values: $utility-colors-vars,
   ),
   "backgroundColor": (
     property: background-color,
     class: bg,
-    values: $utility-background-colors-vars
-  )
+    values: $utility-background-colors-vars,
+  ),
 );
