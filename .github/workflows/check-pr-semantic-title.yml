@@ -15,7 +15,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  validate-pr-title:
+  check-pr-semantic-title:
     runs-on: ubuntu-latest
     steps:
       - name: Validate PR title
