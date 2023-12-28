@@ -1,4 +1,4 @@
-# Changelog
+# Change Log
 
 ## 0.16.1 (2023-12-05)
 
