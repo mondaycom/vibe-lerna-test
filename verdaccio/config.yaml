@@ -5,7 +5,7 @@ uplinks:
 packages:
   '@*/*':
     access: $all
-    publish: $authenticated
+    publish: $anonymous
     proxy: npmjs
   '**':
     proxy: npmjs
