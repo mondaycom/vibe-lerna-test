@@ -1,4 +1,4 @@
-# Changelog
+# Change Log
 
 ## 2.73.1 (2023-12-17)
 
