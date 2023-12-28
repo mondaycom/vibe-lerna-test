@@ -25,5 +25,5 @@ jobs:
           git config --global user.email 'deploy@monday.com'
       - name: "Version and publish"
         run: |
-          npx lerna version --conventional-commits --yes
-#          npx lerna publish from-git --yes
+          lerna version --conventional-commits --yes
+#          lerna publish from-git --yes
