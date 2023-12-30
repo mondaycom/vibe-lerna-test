@@ -34,7 +34,7 @@ jobs:
           for package in $(ls -d packages/*); do
             package_name=$(basename $package)
             package_version=$(node -e "console.log(require('./packages/$package_name/package.json').version)")
-            packages_versions_before_release[$package_name]=$package_version
+            packages_versions_before_release["$package_name"]=$package_version
           done
           echo "packages_versions_before_release=${packages_versions_before_release[@]}" >> $GITHUB_OUTPUT
       - name: Check packages_versions_before_release
