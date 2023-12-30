@@ -91,8 +91,8 @@ jobs:
           declare -A packages_versions_diff
           for package in $(ls -d packages/*); do
             package_name=$(basename $package)
-            package_version_before_release=${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release[$package_name] }}
-            package_version_after_release=${{ steps.get-packages-versions-after-release.outputs.packages_versions_after_release[$package_name] }}
+            package_version_before_release=${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release["$package_name"] }}
+            package_version_after_release=${{ steps.get-packages-versions-after-release.outputs.packages_versions_after_release["$package_name"] }}
             if [ "$package_version_before_release" != "$package_version_after_release" ]; then
               packages_versions_diff[$package_name]=$package_version_after_release
             fi
