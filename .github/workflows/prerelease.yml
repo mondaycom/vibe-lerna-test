@@ -1,0 +1,132 @@
+name: Prerelease
+
+on:
+  - push
+  - workflow_dispatch
+
+jobs:
+  prerelease:
+    if: "github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[prerelease]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: https://registry.npmjs.org/
+      - name: Install and build
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - name: Set up git credentials
+        run: |
+          git config --global user.name 'ci'
+          git config --global user.email 'deploy@monday.com'
+      - name: Get packages versions before release
+        id: get-packages-versions-before-release
+        run: |
+          declare -A packages_versions_before_release
+          for package in $(ls -d packages/*); do
+            package_name=$(basename $package)
+            package_version=$(node -e "console.log(require('./packages/$package_name/package.json').version)")
+            packages_versions_before_release[$package_name]=$package_version
+          done
+          echo "packages_versions_before_release=${packages_versions_before_release[@]}" >> $GITHUB_OUTPUT
+      - name: Check packages_versions_before_release
+        run: |
+          echo "steps.get-packages-versions-before-release.outputs.packages_versions_before_release = ${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release }}"
+      #      - name: "Wait for tests to succeed"
+      #        uses: fountainhead/action-wait-for-check@v1.1.0
+      #        if: success()
+      #        id: wait-for-tests
+      #        with:
+      #          token: ${{ secrets.GITHUB_TOKEN }}
+      #          checkName: "test"
+      #          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      #          timeoutSeconds: 1200
+      #          intervalSeconds: 20
+      #      - name: "Tests failed - exit"
+      #        if: steps.wait-for-tests.outputs.conclusion != 'success'
+      #        run: |
+      #          echo "::error::test check failed - prerelease cancelled"
+      #          exit 1
+      - name: Set version preid
+        id: set-version-preid
+        if: success()
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          echo "version_preid=$(node scripts/get-version-preid.js)" >> $GITHUB_OUTPUT
+      - name: Check version_preid
+        run: |
+          echo "steps.set-version-preid.outputs.version_preid = ${{ steps.set-version-preid.outputs.version_preid }}"
+      - name: "Version and publish"
+        run: |
+          lerna version --conventional-commits --preid ${{ steps.set-version-preid.outputs.version_preid }} --yes
+#          lerna publish from-git --dist-tag prerelease --yes
+      - name: Get packages versions after release
+        if: success()
+        id: get-packages-versions-after-release
+        run: |
+          declare -A packages_versions_after_release
+          for package in $(ls -d packages/*); do
+            package_name=$(basename $package)
+            package_version=$(node -e "console.log(require('./packages/$package_name/package.json').version)")
+            packages_versions_after_release[$package_name]=$package_version
+          done
+          echo "packages_versions_after_release=${packages_versions_after_release[@]}" >> $GITHUB_OUTPUT
+      - name: Check packages_versions_after_release
+        run: |
+          echo "steps.get-packages-versions-after-release.outputs.packages_versions_after_release = ${{ steps.get-packages-versions-after-release.outputs.packages_versions_after_release }}"
+      - name: Get packages versions diff
+        if: success()
+        id: get-packages-versions-diff
+        run: |
+          declare -A packages_versions_diff
+          for package in $(ls -d packages/*); do
+            package_name=$(basename $package)
+            package_version_before_release=${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release[$package_name] }}
+            package_version_after_release=${{ steps.get-packages-versions-after-release.outputs.packages_versions_after_release[$package_name] }}
+            if [ "$package_version_before_release" != "$package_version_after_release" ]; then
+              packages_versions_diff[$package_name]=$package_version_after_release
+            fi
+          done
+          echo "packages_versions_diff=${packages_versions_diff[@]}" >> $GITHUB_OUTPUT
+      - name: Check packages_versions_diff
+        run: |
+          echo "steps.get-packages-versions-diff.outputs.packages_versions_diff = ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}"
+      - name: Get current PR id
+        uses: 8BitJonny/gh-get-current-pr@2.2.0
+        id: PR
+        if: success()
+      - name: Create comment body
+        if: success()
+        id: create-comment-body
+        run: |
+          comment_body=""
+          for package in ${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release[$package_name] }}; do
+            comment_body += "A new prerelease version of this PR has been published: `${$package_name}@${{ steps.get-packages-versions-diff.outputs.packages_versions_diff[$package_name] }}`"
+            comment_body += "\n"
+            comment_body += "```\n"
+            comment_body += "// To install this prerelease version using npm, please run the following command in your terminal:\n"
+            comment_body += "npm i $package@${{ steps.get-packages-versions-diff.outputs.packages_versions_diff[$package_name] }}\n"
+            comment_body += "// If you prefer using Yarn, you can use the following command instead:\n"
+            comment_body += "yarn add $package@${{ steps.get-packages-versions-diff.outputs.packages_versions_diff[$package_name] }}\n"
+            comment_body += "```\n"
+          done
+          echo "comment_body=$comment_body" >> $GITHUB_OUTPUT
+      - name: Check comment_body
+        run: |
+          echo "steps.create-comment-body.outputs.comment_body = ${{ steps.create-comment-body.outputs.comment_body }}"
+      - name: Create comment with prerelease version details
+        if: success()
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ steps.PR.outputs.number }}
+          body: ${{ steps.create-comment-body.outputs.comment_body }}
