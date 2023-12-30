@@ -36,7 +36,7 @@ jobs:
             package_version=$(node -e "console.log(require('./packages/$package_name/package.json').version)")
             packages_versions_before_release["$package_name"]=$package_version
           done
-          echo "packages_versions_before_release=${packages_versions_before_release[@]}" >> $GITHUB_OUTPUT
+          echo "packages_versions_before_release=${packages_versions_before_release}" >> $GITHUB_OUTPUT
       - name: Check packages_versions_before_release
         run: |
           echo "steps.get-packages-versions-before-release.outputs.packages_versions_before_release = ${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release }}"
@@ -69,6 +69,7 @@ jobs:
       - name: "Version and publish"
         run: |
           lerna version --conventional-commits --preid ${{ steps.set-version-preid.outputs.version_preid }} --yes
+          echo "### lerna version success"
       #          lerna publish from-git --dist-tag prerelease --yes
       - name: Get packages versions after release
         if: success()
@@ -80,7 +81,7 @@ jobs:
             package_version=$(node -e "console.log(require('./packages/$package_name/package.json').version)")
             packages_versions_after_release[$package_name]=$package_version
           done
-          echo "packages_versions_after_release=${packages_versions_after_release[@]}" >> $GITHUB_OUTPUT
+          echo "packages_versions_after_release=${packages_versions_after_release}" >> $GITHUB_OUTPUT
       - name: Check packages_versions_after_release
         run: |
           echo "steps.get-packages-versions-after-release.outputs.packages_versions_after_release = ${{ steps.get-packages-versions-after-release.outputs.packages_versions_after_release }}"
@@ -97,7 +98,7 @@ jobs:
               packages_versions_diff[$package_name]=$package_version_after_release
             fi
           done
-          echo "packages_versions_diff=${packages_versions_diff[@]}" >> $GITHUB_OUTPUT
+          echo "packages_versions_diff=${packages_versions_diff}" >> $GITHUB_OUTPUT
       - name: Check packages_versions_diff
         run: |
           echo "steps.get-packages-versions-diff.outputs.packages_versions_diff = ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}"

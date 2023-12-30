@@ -12,7 +12,9 @@ function getVersionPreid() {
     finalPrName = branchName.substring(index + 1);
   }
 
-  return `${finalPrName}-${commitSHA.substring(0, 10)}`;
+  const versionPreid = `${finalPrName}-${commitSHA.substring(0, 10)}`;
+  console.log(versionPreid);
+  return versionPreid;
 }
 
 getVersionPreid();
