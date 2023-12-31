@@ -8,7 +8,7 @@ function getCurrentPackageVersions() {
 
   const packageVersions = {};
 
-  Object.keys(fs.readdirSync(PACKAGES_PATH)).forEach(packageName => {
+  fs.readdirSync(PACKAGES_PATH).forEach(packageName => {
     const packageJson = require(path.join(PACKAGES_PATH, packageName, "package.json"));
     packageVersions[packageName] = packageJson.version;
   });
