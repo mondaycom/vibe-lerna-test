@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Get current package versions from package.json files for all packages in packages folder
  */

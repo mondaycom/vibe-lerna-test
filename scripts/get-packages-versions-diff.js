@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Get packages versions diff - packages that were updated since last release
  */

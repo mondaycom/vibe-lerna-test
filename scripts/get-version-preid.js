@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+/**
+ * Forms a prerelease version name based on the branch name and commit SHA
+ */
 function getVersionPreid() {
   const branchName = process.env.BRANCH_NAME;
   const commitSHA = process.env.COMMIT_SHA;
