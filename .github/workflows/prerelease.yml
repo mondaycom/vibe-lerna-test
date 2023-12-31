@@ -29,9 +29,11 @@ jobs:
           git config --global user.email 'deploy@monday.com'
       - name: Get packages versions before release
         id: get-packages-versions-before-release
-        run: echo "packages_versions_before_release=$(node scripts/get-current-package-versions.js)" >> $GITHUB_OUTPUT
+        run: |
+          echo "packages_versions_before_release=$(node scripts/get-current-package-versions.js)" >> $GITHUB_OUTPUT
       - name: Check packages_versions_before_release
-        run: echo "steps.get-packages-versions-before-release.outputs.packages_versions_before_release = ${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release }}"
+        run: |
+          echo "steps.get-packages-versions-before-release.outputs.packages_versions_before_release = ${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release }}"
       #      - name: "Wait for tests to succeed"
       #        uses: fountainhead/action-wait-for-check@v1.1.0
       #        if: success()
@@ -60,29 +62,25 @@ jobs:
           echo "steps.set-version-preid.outputs.version_preid = ${{ steps.set-version-preid.outputs.version_preid }}"
       - name: "Version and publish"
         run: |
-          lerna version --conventional-commits --preid ${{ steps.set-version-preid.outputs.version_preid }} --yes
+          lerna version --conventional-commits --conventional-prerelease --preid ${{ steps.set-version-preid.outputs.version_preid }} --yes
           echo "### lerna version success"
       #          lerna publish from-git --dist-tag prerelease --yes
       - name: Get packages versions after release
         if: success()
         id: get-packages-versions-after-release
-        run: echo "packages_versions_after_release=$(node scripts/get-current-package-versions.js)" >> $GITHUB_OUTPUT
+        run: |
+          echo "packages_versions_after_release=$(node scripts/get-current-package-versions.js)" >> $GITHUB_OUTPUT
       - name: Check packages_versions_after_release
-        run: echo "steps.get-packages-versions-after-release.outputs.packages_versions_after_release = ${{ steps.get-packages-versions-after-release.outputs.packages_versions_after_release }}"
+        run: |
+          echo "steps.get-packages-versions-after-release.outputs.packages_versions_after_release = ${{ steps.get-packages-versions-after-release.outputs.packages_versions_after_release }}"
       - name: Get packages versions diff
         if: success()
         id: get-packages-versions-diff
+        env:
+          packages_versions_before_release: ${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release }}
+          packages_versions_after_release: ${{ steps.get-packages-versions-after-release.outputs.packages_versions_after_release }}
         run: |
-          declare -A packages_versions_diff
-          for package in $(ls -d packages/*); do
-            package_name=$(basename $package)
-            package_version_before_release=$(${{ steps.get-packages-versions-before-release.outputs.packages_versions_before_release }}[$package_name])
-            package_version_after_release=$(${{ steps.get-packages-versions-after-release.outputs.packages_versions_after_release }}[$package_name])
-            if [ "$package_version_before_release" != "$package_version_after_release" ]; then
-              packages_versions_diff[$package_name]=$package_version_after_release
-            fi
-          done
-          echo "packages_versions_diff=${packages_versions_diff}" >> $GITHUB_OUTPUT
+          echo "packages_versions_diff=$(node scripts/get-packages-versions-diff.js)" >> $GITHUB_OUTPUT
       - name: Check packages_versions_diff
         run: |
           echo "steps.get-packages-versions-diff.outputs.packages_versions_diff = ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}"
