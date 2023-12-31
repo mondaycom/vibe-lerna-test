@@ -11,16 +11,17 @@ function getPackagesVersionsDiff() {
   const path = require("path");
   const PACKAGES_PATH = path.join(__dirname, "../packages");
 
-  const packageVersionsDiff = {};
+  const packagesVersionsDiff = {};
 
   fs.readdirSync(PACKAGES_PATH).forEach(packageName => {
     if (package_version_before_release[packageName] !== package_version_after_release[packageName]) {
-      packageVersionsDiff[packageName] = package_version_after_release[packageName];
+      packagesVersionsDiff[packageName] = package_version_after_release[packageName];
     }
   });
 
-  console.log(packageVersionsDiff);
-  return packageVersionsDiff;
+  console.log(packagesVersionsDiff);
+  fs.writeFileSync(process.env.GITHUB_OUTPUT, `packages_versions_diff=${packagesVersionsDiff}`);
+  return packagesVersionsDiff;
 }
 
 getPackagesVersionsDiff();

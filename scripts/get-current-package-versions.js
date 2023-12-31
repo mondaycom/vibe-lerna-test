@@ -8,15 +8,15 @@ function getCurrentPackageVersions() {
   const path = require("path");
   const PACKAGES_PATH = path.join(__dirname, "../packages");
 
-  const packageVersions = {};
+  const packagesVersions = {};
 
   fs.readdirSync(PACKAGES_PATH).forEach(packageName => {
     const packageJson = require(path.join(PACKAGES_PATH, packageName, "package.json"));
-    packageVersions[packageName] = packageJson.version;
+    packagesVersions[packageName] = packageJson.version;
   });
 
-  console.log(packageVersions);
-  return packageVersions;
+  fs.writeFileSync(process.env.GITHUB_OUTPUT, `packages_versions=${packagesVersions}`);
+  return packagesVersions;
 }
 
 getCurrentPackageVersions();
