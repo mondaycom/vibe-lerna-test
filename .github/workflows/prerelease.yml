@@ -62,8 +62,10 @@ jobs:
           echo "steps.set-version-preid.outputs.version_preid = ${{ steps.set-version-preid.outputs.version_preid }}"
       - name: "Version and publish"
         run: |
-          lerna version --conventional-commits --conventional-prerelease --preid ${{ steps.set-version-preid.outputs.version_preid }} --yes
-          echo "### lerna version success"
+          lerna version --conventional-commits --conventional-prerelease --preid ${{ steps.set-version-preid.outputs.version_preid }} --no-git-tag-version --no-changelog --yes
+          git add .
+          git commit -m "Prerelease packages"
+          git push
       #          lerna publish from-git --dist-tag prerelease --yes
       - name: Get packages versions after release
         if: success()
@@ -84,6 +86,10 @@ jobs:
       - name: Check packages_versions_diff
         run: |
           echo "steps.get-packages-versions-diff.outputs.packages_versions_diff = ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}"
+#      - name: Revert Git prerelease commit
+#        run: |
+#          git reset --hard HEAD~1
+#          git push --force
       - name: Get current PR id
         uses: 8BitJonny/gh-get-current-pr@2.2.0
         id: PR
