@@ -31,9 +31,6 @@ jobs:
         id: get-packages-versions-before-release
         run: |
           node scripts/get-current-package-versions.js
-      - name: Check packages_versions_before_release
-        run: |
-          echo "steps.get-packages-versions-before-release.outputs.packages_versions = ${{ steps.get-packages-versions-before-release.outputs.packages_versions }}"
       #      - name: "Wait for tests to succeed"
       #        uses: fountainhead/action-wait-for-check@v1.1.0
       #        if: success()
@@ -72,9 +69,6 @@ jobs:
         id: get-packages-versions-after-release
         run: |
           node scripts/get-current-package-versions.js
-      - name: Check packages_versions_after_release
-        run: |
-          echo "steps.get-packages-versions-after-release.outputs.packages_versions = ${{ steps.get-packages-versions-after-release.outputs.packages_versions }}"
       - name: Get packages versions diff
         if: success()
         id: get-packages-versions-diff
@@ -86,10 +80,10 @@ jobs:
       - name: Check packages_versions_diff
         run: |
           echo "steps.get-packages-versions-diff.outputs.packages_versions_diff = ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}"
-      #      - name: Revert Git prerelease commit
-      #        run: |
-      #          git reset --hard HEAD~1
-      #          git push --force
+      - name: Revert Git prerelease commit
+        run: |
+          git reset --hard HEAD~1
+          git push --force
       - name: Get current PR id
         uses: 8BitJonny/gh-get-current-pr@2.2.0
         id: PR
@@ -100,13 +94,13 @@ jobs:
         run: |
           comment_body=""
           for package_name in ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}; do
-            comment_body += "A new prerelease version of this PR has been published: `$package_name@$(${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}[$package_name])`"
+            comment_body += "A new prerelease version of this PR has been published: `$package_name\@$(${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}[$package_name])`"
             comment_body += "\n"
             comment_body += "```\n"
             comment_body += "// To install this prerelease version using npm, please run the following command in your terminal:\n"
-            comment_body += "npm i $package_name@$(${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}[$package_name])\n"
+            comment_body += "npm i $package_name\@$(${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}[$package_name])\n"
             comment_body += "// If you prefer using Yarn, you can use the following command instead:\n"
-            comment_body += "yarn add $package_name@$(${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}[$package_name])\n"
+            comment_body += "yarn add $package_name\@$(${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}[$package_name])\n"
             comment_body += "```\n"
           done
           echo "comment_body=$comment_body" >> $GITHUB_OUTPUT
