@@ -22,7 +22,7 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
       - name: Set up git credentials
         run: |
           git config --global user.name 'ci'
@@ -31,6 +31,14 @@ jobs:
         id: get-packages-versions-before-release
         run: |
           node scripts/get-current-package-versions.js
+      - name: Set version preid
+        id: set-version-preid
+        if: success()
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          node scripts/prerelease/get-version-preid.js
       #      - name: "Wait for tests to succeed"
       #        uses: fountainhead/action-wait-for-check@v1.1.0
       #        if: success()
@@ -46,15 +54,8 @@ jobs:
       #        run: |
       #          echo "::error::test check failed - prerelease cancelled"
       #          exit 1
-      - name: Set version preid
-        id: set-version-preid
-        if: success()
-        env:
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-          COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: |
-          node scripts/prerelease/get-version-preid.js
       - name: "Version and publish"
+        if: success()
         run: |
           lerna version --conventional-commits --conventional-prerelease --preid ${{ steps.set-version-preid.outputs.version_preid }} --no-git-tag-version --no-changelog --yes
           git add .
@@ -75,13 +76,14 @@ jobs:
         run: |
           node scripts/get-packages-versions-diff.js
       - name: Revert Git prerelease commit
+        if: success()
         run: |
           git reset --hard HEAD~1
           git push --force
       - name: Get current PR id
+        if: success()
         uses: 8BitJonny/gh-get-current-pr@2.2.0
         id: PR
-        if: success()
       - name: Create comment body
         if: success()
         id: create-comment-body
