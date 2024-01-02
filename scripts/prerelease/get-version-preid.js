@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const fs = require("fs");
+
 /**
  * Forms a prerelease version name based on the branch name and commit SHA
  */
@@ -15,9 +17,8 @@ function getVersionPreid() {
     finalPrName = branchName.substring(index + 1);
   }
 
-  const versionPreid = `${finalPrName}-${commitSHA.substring(0, 10)}`;
-  console.log(versionPreid);
-  return versionPreid;
+  const version_preid = `${finalPrName}-${commitSHA.substring(0, 10)}`;
+  fs.writeFileSync(process.env.GITHUB_OUTPUT, `version_preid=${version_preid}`);
 }
 
 getVersionPreid();

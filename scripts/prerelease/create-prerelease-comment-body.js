@@ -8,6 +8,7 @@ const fs = require("fs");
 function createPrereleaseCommentBody() {
   const packages_versions_diff = JSON.parse(process.env.PACKAGES_VERSIONS_DIFF);
   let comment_body = "";
+
   for (const package_name in packages_versions_diff) {
     const new_version = packages_versions_diff[package_name];
     comment_body += `A new prerelease version of this PR has been published: \`${package_name}@${new_version}\`\n`;

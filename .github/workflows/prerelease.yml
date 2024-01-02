@@ -53,10 +53,7 @@ jobs:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
           COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
-          echo "version_preid=$(node scripts/prerelease/get-version-preid.js)" >> $GITHUB_OUTPUT
-      - name: Check version_preid
-        run: |
-          echo "steps.set-version-preid.outputs.version_preid = ${{ steps.set-version-preid.outputs.version_preid }}"
+          node scripts/prerelease/get-version-preid.js
       - name: "Version and publish"
         run: |
           lerna version --conventional-commits --conventional-prerelease --preid ${{ steps.set-version-preid.outputs.version_preid }} --no-git-tag-version --no-changelog --yes
