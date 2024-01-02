@@ -11,10 +11,10 @@ function createPrereleaseCommentBody() {
 
   for (const package_name in packages_versions_diff) {
     const new_version = packages_versions_diff[package_name];
-    comment_body += `A new prerelease version of this PR has been published: \`${package_name}@${new_version}\`\n`;
+    comment_body += `A new prerelease version of package updated in this PR has been published: \`${package_name}@${new_version}\`\n`;
     comment_body += `To install this prerelease version using npm, please run the following command in your terminal:\n`;
     comment_body += `\`npm i ${package_name}@${new_version}\`\n`;
-    comment_body += `If you are using Yarn, you can use the following command instead:\n`;
+    comment_body += `To install it using Yarn, you can run the following command instead:\n`;
     comment_body += `\`yarn add ${package_name}@${new_version}\`\n\n`;
   }
 

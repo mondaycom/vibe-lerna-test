@@ -89,12 +89,9 @@ jobs:
           PACKAGES_VERSIONS_DIFF: ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}
         run: |
           node scripts/prerelease/create-prerelease-comment-body.js
-      - name: Check comment_body
-        run: |
-          echo "steps.create-comment-body.outputs.comment_body = ${{ steps.create-comment-body.outputs.comment_body }}"
       - name: Create comment with prerelease version details
         if: success()
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ steps.PR.outputs.number }}
-          body: ${{ steps.create-comment-body.outputs.comment_body }}
+          body: ${{ fromJSON(steps.create-comment-body.outputs.comment_body) }}
