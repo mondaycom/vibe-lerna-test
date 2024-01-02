@@ -91,13 +91,13 @@ jobs:
         run: |
           comment_body=""
           for package_name in ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}; do
-            comment_body+="A new prerelease version of this PR has been published: \`${package_name}@${{ steps.get-packages-versions-diff.outputs.packages_versions_diff[$package_name] }}\`"
+            comment_body+="A new prerelease version of this PR has been published: \${package_name}@${{ steps.get-packages-versions-diff.outputs.packages_versions_diff[${package_name}] }}\"
             comment_body+="\n"
             comment_body+="\n"
             comment_body+="// To install this prerelease version using npm, please run the following command in your terminal:\n"
-            comment_body+="npm i ${package_name}@${{ steps.get-packages-versions-diff.outputs.packages_versions_diff[$package_name] }}\n"
+            comment_body+="npm i ${package_name}@${{ steps.get-packages-versions-diff.outputs.packages_versions_diff[${package_name}] }}\n"
             comment_body+="// If you prefer using Yarn, you can use the following command instead:\n"
-            comment_body+="yarn add ${package_name}@${{ steps.get-packages-versions-diff.outputs.packages_versions_diff[$package_name] }}\n"
+            comment_body+="yarn add ${package_name}@${{ steps.get-packages-versions-diff.outputs.packages_versions_diff[${package_name}] }}\n"
             comment_body+="\n"
           done
           echo "comment_body=$comment_body" >> $GITHUB_OUTPUT
