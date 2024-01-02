@@ -9,8 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Install & build
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
       - name: Publish monday-ui-react-core to Chromatic
         uses: chromaui/action@v1
         with:
