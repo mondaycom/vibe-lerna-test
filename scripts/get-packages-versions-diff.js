@@ -4,8 +4,8 @@
  * Get packages versions diff - packages that were updated since last release
  */
 function getPackagesVersionsDiff() {
-  const package_version_before_release = process.env.PACKAGES_VERSIONS_BEFORE_RELEASE;
-  const package_version_after_release = process.env.PACKAGES_VERSIONS_AFTER_RELEASE;
+  let package_version_before_release = process.env.PACKAGES_VERSIONS_BEFORE_RELEASE;
+  let package_version_after_release = process.env.PACKAGES_VERSIONS_AFTER_RELEASE;
 
   console.log("### getPackagesVersionsDiff");
   console.log("### getPackagesVersionsDiff package_version_before_release", package_version_before_release);
@@ -18,6 +18,12 @@ function getPackagesVersionsDiff() {
     "### getPackagesVersionsDiff JSON.stringify(package_version_after_release)",
     JSON.stringify(package_version_after_release),
   );
+
+  console.log("### parsing varibles to json");
+  package_version_before_release = JSON.parse(package_version_before_release);
+  package_version_after_release = JSON.parse(package_version_after_release);
+  console.log("### getPackagesVersionsDiff package_version_before_release", package_version_before_release);
+  console.log("### getPackagesVersionsDiff package_version_after_release", package_version_after_release);
 
   const fs = require("fs");
   const path = require("path");
