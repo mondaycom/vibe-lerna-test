@@ -19,6 +19,7 @@ jobs:
           # 👇 Chromatic projectToken, refer to the manage page to obtain it.
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: packages/monday-ui-react-core
+          #skip: "gh-pages-*" # skip gh-pages branches - probably will be renamed in the future, so commented out for now
       - name: Publish monday-ui-style to Chromatic
         uses: chromaui/action@v1
         with:
