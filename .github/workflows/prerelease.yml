@@ -79,8 +79,8 @@ jobs:
         if: success()
         id: get-packages-versions-diff
         env:
-          packages_versions_before_release: ${{ steps.get-packages-versions-before-release.outputs.packages_versions }}
-          packages_versions_after_release: ${{ steps.get-packages-versions-after-release.outputs.packages_versions }}
+          PACKAGES_VERSIONS_BEFORE_RELEASE: ${{ steps.get-packages-versions-before-release.outputs.packages_versions }}
+          PACKAGES_VERSIONS_AFTER_RELEASE: ${{ steps.get-packages-versions-after-release.outputs.packages_versions }}
         run: |
           node scripts/get-packages-versions-diff.js
       - name: Check packages_versions_diff

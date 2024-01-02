@@ -4,8 +4,8 @@
  * Get packages versions diff - packages that were updated since last release
  */
 function getPackagesVersionsDiff() {
-  const package_version_before_release = process.env.package_version_before_release;
-  const package_version_after_release = process.env.package_version_after_release;
+  const package_version_before_release = process.env.PACKAGES_VERSIONS_BEFORE_RELEASE;
+  const package_version_after_release = process.env.PACKAGES_VERSIONS_AFTER_RELEASE;
 
   console.log("### getPackagesVersionsDiff");
   console.log("### getPackagesVersionsDiff package_version_before_release", package_version_before_release);
