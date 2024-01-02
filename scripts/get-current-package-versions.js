@@ -15,7 +15,6 @@ function getCurrentPackageVersions() {
     packagesVersions[packageName] = packageJson.version;
   });
 
-  console.log("### getCurrentPackageVersions packagesVersions", packagesVersions);
   fs.writeFileSync(process.env.GITHUB_OUTPUT, `packages_versions=${JSON.stringify(packagesVersions)}`);
   return packagesVersions;
 }
