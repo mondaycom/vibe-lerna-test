@@ -1,0 +1,21 @@
+# Publish Storybooks builds on Chromatic
+
+name: "Chromatic vibe-storybook-components"
+
+on: push
+
+jobs:
+  chromatic-vibe-storybook-components:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install & build
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+      - name: Publish vibe-storybook-components to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: packages/vibe-storybook-components
+          #skip: "gh-pages-*" # skip gh-pages branches - probably will be renamed in the future, so commented out for now
