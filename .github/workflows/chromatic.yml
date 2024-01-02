@@ -1,0 +1,29 @@
+# Publish Storybooks builds on Chromatic
+
+name: "Chromatic"
+
+on: push
+
+jobs:
+  chromatic-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Publish monday-ui-react-core to Chromatic
+        uses: chromaui/action@v1
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: packages/monday-ui-react-core
+      - name: Publish monday-ui-style to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: packages/monday-ui-style
+      - name: Publish vibe-storybook-components to Chromatic
+        uses: chromaui/action@v1
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: packages/vibe-storybook-components
