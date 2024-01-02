@@ -33,4 +33,4 @@ jobs:
       - name: "Version and publish"
         run: |
           lerna version --conventional-commits --yes
-#          lerna publish from-git --yes #--registry http://localhost:4873
+#          lerna publish from-git --yes
