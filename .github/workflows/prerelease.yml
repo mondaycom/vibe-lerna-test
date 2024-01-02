@@ -77,9 +77,6 @@ jobs:
           PACKAGES_VERSIONS_AFTER_RELEASE: ${{ steps.get-packages-versions-after-release.outputs.packages_versions }}
         run: |
           node scripts/get-packages-versions-diff.js
-      - name: Check packages_versions_diff
-        run: |
-          echo "steps.get-packages-versions-diff.outputs.packages_versions_diff = ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}"
       - name: Revert Git prerelease commit
         run: |
           git reset --hard HEAD~1
