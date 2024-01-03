@@ -78,7 +78,7 @@ jobs:
         run: |
           # Needed to propagate the exit code of the publish command
           set -o pipefail 
-          lerna publish from-package --dist-tag prerelease --yes 2>&1 | tee lerna-debug.log
+          lerna publish from-package --dist-tag prerelease --registry https://registry.npmjs.org/ --yes 2>&1 | tee lerna-debug.log
       - name: Exit if 'lerna publish' failed
         if: success() != true
         run: |
