@@ -64,6 +64,8 @@ jobs:
         if: success() != true
         run: |
           echo "::error::version step failed - prerelease cancelled"
+          echo "lerna-debug.log:"
+          cat lerna-debug.log
           exit 1
       - name: "Commit and push version-changes"
         run: |
@@ -77,6 +79,8 @@ jobs:
         if: success() != true
         run: |
           echo "::error::publish step failed - prerelease cancelled"
+          echo "lerna-debug.log:"
+          cat lerna-debug.log
           git reset --hard HEAD~1 && git push --force
           exit 1
       - name: Revert Git version-changes commit
