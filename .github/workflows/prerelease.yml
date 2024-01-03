@@ -74,11 +74,13 @@ jobs:
           git commit -m "Prerelease packages"
           git push
       - name: "Publish"
+        id: publish
         run: |
-          set -e
           lerna publish from-package --dist-tag prerelease --yes | tee lerna-debug.log
+          ls
+          echo "success=true" >> $GITHUB_OUTPUT
       - name: Exit if 'lerna publish' failed
-        if: success() != true
+        if: ${{ steps.publish.outputs.success }} != true
         run: |
           echo "::error::publish step failed - prerelease cancelled"
           git reset --hard HEAD~1 && git push --force
