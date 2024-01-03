@@ -74,6 +74,7 @@
     "build:react-icons": "svg2react-icon --typescript --keep-colors ../../packages/monday-ui-style/src/Icons src/components/Icon/Icons",
     "storybook": "storybook dev -p 7008",
     "build-storybook": "npm run build:storybook-exports && storybook build",
+    "chromatic": "chromatic --project-token chpt_c1a4016a22010f8",
     "deploy-storybook": "storybook-to-ghpages",
     "link-local": "npm link && npm start",
     "plop": "plop",
