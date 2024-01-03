@@ -11,6 +11,7 @@
     "test": "lerna run test",
     "lint": "lerna run lint",
     "build-storybook": "lerna run build-storybook",
+    "chromatic": "lerna run chromatic",
     "prettier:fix": "lerna run prettier:fix",
     "synckpack-lint": "syncpack lint",
     "synckpack-mismatches": "syncpack list-mismatches",
