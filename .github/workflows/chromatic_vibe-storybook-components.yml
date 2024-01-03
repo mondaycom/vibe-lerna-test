@@ -16,6 +16,6 @@ jobs:
       - name: Publish vibe-storybook-components to Chromatic
         uses: chromaui/action@v1
         with:
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN_VIBE_STORYBOOK_COMPONENTS }}
           workingDir: packages/vibe-storybook-components
           #skip: "gh-pages-*" # skip gh-pages branches - probably will be renamed in the future, so commented out for now
