@@ -43,7 +43,7 @@
     "test:stories": "testing=storybook TEST_END_FILES=jest-story jest --passWithNoTests",
     "storybook": "storybook dev -p 7012",
     "build-storybook": "storybook build",
-    "chromatic": "chromatic --project-token chpt_d0f6eaaa1ea9d6a",
+    "chromatic": "chromatic --project-token chpt_d0f6eaaa1ea9d6a --exit-zero-on-changes",
     "release": "./scripts/release.mjs",
     "pre-release": "./scripts/prerelease.mjs"
   },

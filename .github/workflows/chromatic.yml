@@ -1,6 +1,6 @@
 # Publish Storybooks builds on Chromatic
 
-name: "Chromatic monday-ui-react-core"
+name: "Chromatic"
 
 on: push
 

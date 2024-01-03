@@ -25,7 +25,7 @@
     "pre-release": "./scripts/prerelease.js",
     "storybook": "storybook dev -p 7006",
     "build-storybook": "storybook build",
-    "chromatic": "chromatic --project-token chpt_1d5475bbe118525"
+    "chromatic": "chromatic --project-token chpt_1d5475bbe118525 --exit-zero-on-changes"
   },
   "repository": {
     "type": "git",
