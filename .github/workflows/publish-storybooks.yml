@@ -11,14 +11,17 @@ on:
       monday-ui-react-core:
         required: false
         type: boolean
+        default: false
         description: "monday-ui-react-core"
       monday-ui-style:
         required: false
         type: boolean
+        default: false
         description: "monday-ui-style"
       vibe-storybook-components:
         required: false
         type: boolean
+        default: false
         description: "vibe-storybook-components"
 
 permissions:
