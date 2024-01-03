@@ -2,9 +2,10 @@
 name: Publish Storybooks
 
 on:
-  push:
-    branches:
-      - master # maybe should also avoid release commits - from "ci" user
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
   workflow_dispatch:
     inputs:
       monday-ui-react-core:
@@ -39,15 +40,15 @@ jobs:
           yarn build-storybook
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Set up git credentials
-        run: |
-          git config --global user.name 'ci'
-          git config --global user.email 'deploy@monday.com'
       - name: "Build failed - exit"
         if: success() != true
         run: |
           echo "::error::build_step failed - publish-storybooks cancelled"
           exit 1
+      - name: Set up git credentials
+        run: |
+          git config --global user.name 'ci'
+          git config --global user.email 'deploy@monday.com'
       - name: Set variable
         run: |
           echo "Should deploy monday-ui-react-core Storybook: ${{ github.event.inputs.monday-ui-react-core }}"
