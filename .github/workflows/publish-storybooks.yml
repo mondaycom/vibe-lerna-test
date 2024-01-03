@@ -1,24 +1,31 @@
+# Publish Storybooks to GitHub Pages - on push to master or workflow_dispatch with package selection - builds and pushes storybook-static folders to gh-pages branches
 name: Publish Storybooks
 
 on:
-  #  workflow_run:
-  #    workflows: ["Release new version"]
-  #    types:
-  #      - completed
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
   workflow_dispatch:
     inputs:
       monday-ui-react-core:
         required: false
         type: boolean
-        description: "Deploy monday-ui-react-core Storybook"
+        default: false
+        description: "monday-ui-react-core"
       monday-ui-style:
         required: false
         type: boolean
-        description: "Deploy monday-ui-style Storybook"
+        default: false
+        description: "monday-ui-style"
       vibe-storybook-components:
         required: false
         type: boolean
-        description: "Deploy vibe-storybook-components Storybook"
+        default: false
+        description: "vibe-storybook-components"
+
+permissions:
+  contents: write
 
 jobs:
   build-and-deploy:
@@ -34,43 +41,57 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
           yarn build-storybook
-          echo ::set-output name=success::$(echo "true")
-        #          echo "style.monday.com" > ./CNAME
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: "Build failed - exit"
-        if: ${{ steps.build_step.outputs.success != 'true' }}
+        if: success() != true
         run: |
           echo "::error::build_step failed - publish-storybooks cancelled"
           exit 1
-      - name: Set variable
+      - name: Set up git credentials
         run: |
-          echo "Should deploy monday-ui-react-core Storybook: ${{ github.event.inputs.monday-ui-react-core }}"
-          echo "Should deploy monday-ui-style Storybook: ${{ github.event.inputs.monday-ui-style }}"
-          echo "Should deploy vibe-storybook-components Storybook: ${{ github.event.inputs.vibe-storybook-components }}"
-          echo "USER_INPUT=$(${{ github.event.inputs.monday-ui-react-core }} || ${{ github.event.inputs.monday-ui-style }} || ${{ github.event.inputs.vibe-storybook-components }})" >> $GITHUB_ENV
-          echo "USER_INPUT: ${{ env.USER_INPUT }}"
+          git config --global user.name 'ci'
+          git config --global user.email 'deploy@monday.com'
+      - name: Picking what to deploy
+        run: |
+          if [ ${{ github.event_name == 'workflow_dispatch' }} ]; then
+            echo "ANY_PACKAGE_SELECTED=$(${{ github.event.inputs.monday-ui-react-core }} || ${{ github.event.inputs.monday-ui-style }} || ${{ github.event.inputs.vibe-storybook-components }})" >> $GITHUB_ENV
+          else
+            echo "ANY_PACKAGE_SELECTED=false" >> $GITHUB_ENV
+          fi
+          
+          if [ ${{ env.ANY_PACKAGE_SELECTED == 'false' }} ]; then
+            echo "No package selected, deploying all..."
+          else
+            echo "Deploying only selected packages..."
+            echo "Should deploy monday-ui-react-core Storybook: ${{ github.event.inputs.monday-ui-react-core }}"
+            echo "Should deploy monday-ui-style Storybook: ${{ github.event.inputs.monday-ui-style }}"
+            echo "Should deploy vibe-storybook-components Storybook: ${{ github.event.inputs.vibe-storybook-components }}"
+          fi
       - name: Push monday-ui-react-core Storybook to Github Pages
-        if: ${{ env.USER_INPUT == 'false' }} || ${{ github.event.inputs.monday-ui-react-core == 'true' }}
-        uses: crazy-max/ghaction-github-pages@v2
+        if: ${{ env.ANY_PACKAGE_SELECTED == 'false' }} || ${{ github.event.inputs.monday-ui-react-core == 'true' }}
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          target_branch: "gh-pages-monday-ui-react-core"
-          build_dir: "packages/monday-ui-react-core/storybook-static"
+          folder: "packages/monday-ui-react-core/storybook-static"
+          branch: "gh-pages"
+          target-folder: "monday-ui-react-core"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push monday-ui-style Storybook to Github Pages
-        if: ${{ env.USER_INPUT == 'false' }} || ${{ github.event.inputs.monday-ui-style == 'true' }}
-        uses: crazy-max/ghaction-github-pages@v2
+        if: ${{ env.ANY_PACKAGE_SELECTED == 'false' }} || ${{ github.event.inputs.monday-ui-style == 'true' }}
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          target_branch: "gh-pages-monday-ui-style"
-          build_dir: "packages/monday-ui-style/storybook-static"
+          folder: "packages/monday-ui-style/storybook-static"
+          branch: "gh-pages"
+          target-folder: "monday-ui-style"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push vibe-storybook-components Storybook to Github Pages
-        if: ${{ env.USER_INPUT == 'false' }} || ${{ github.event.inputs.vibe-storybook-components == 'true' }}
-        uses: crazy-max/ghaction-github-pages@v2
+        if: ${{ env.ANY_PACKAGE_SELECTED == 'false' }} || ${{ github.event.inputs.vibe-storybook-components == 'true' }}
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          target_branch: "gh-pages-vibe-storybook-components"
-          build_dir: "packages/vibe-storybook-components/storybook-static"
+          folder: "packages/vibe-storybook-components/storybook-static"
+          branch: "gh-pages"
+          target-folder: "vibe-storybook-components"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
