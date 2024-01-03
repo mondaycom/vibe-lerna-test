@@ -1,9 +1,10 @@
+# Publish Storybooks to GitHub Pages - on push to master or workflow_dispatch with package selection - builds and pushes storybook-static folders to gh-pages branches
 name: Publish Storybooks
 
 on:
   push:
     branches:
-      - master
+      - master # maybe should also avoid release commits - from "ci" user
   workflow_dispatch:
     inputs:
       monday-ui-react-core:
