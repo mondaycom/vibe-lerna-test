@@ -61,7 +61,7 @@ jobs:
           git add .
           git commit -m "Prerelease packages"
           git push
-      #          lerna publish from-git --dist-tag prerelease --yes
+          lerna publish from-git --dist-tag prerelease --yes
       - name: Get packages versions after release
         if: success()
         id: get-packages-versions-after-release
