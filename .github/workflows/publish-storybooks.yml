@@ -1,24 +1,23 @@
 name: Publish Storybooks
 
 on:
-  #  workflow_run:
-  #    workflows: ["Release new version"]
-  #    types:
-  #      - completed
+  push:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
       monday-ui-react-core:
         required: false
         type: boolean
-        description: "Deploy monday-ui-react-core Storybook"
+        description: "monday-ui-react-core"
       monday-ui-style:
         required: false
         type: boolean
-        description: "Deploy monday-ui-style Storybook"
+        description: "monday-ui-style"
       vibe-storybook-components:
         required: false
         type: boolean
-        description: "Deploy vibe-storybook-components Storybook"
+        description: "vibe-storybook-components"
 
 jobs:
   build-and-deploy:
@@ -34,12 +33,10 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
           yarn build-storybook
-          echo ::set-output name=success::$(echo "true")
-        #          echo "style.monday.com" > ./CNAME
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
       - name: "Build failed - exit"
-        if: ${{ steps.build_step.outputs.success != 'true' }}
+        if: success() != true
         run: |
           echo "::error::build_step failed - publish-storybooks cancelled"
           exit 1
