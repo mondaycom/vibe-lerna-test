@@ -1,3 +1,5 @@
+# Change Log
+
 0.1.205 / 2023-12-11
 ====================
   * fix(icons): replace DoubleCheck icon ([#263](https://github.com/mondaycom/monday-ui-style/issues/263))

@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    branches:
+      - master
+# to run on merges to master
+#  push:
+#    branches:
+#      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: https://registry.npmjs.org/
+      - name: Install and build
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+      - name: Set up git credentials
+        run: |
+          git config --global user.name 'ci'
+          git config --global user.email 'deploy@monday.com'
+      - name: "Version and publish"
+        run: |
+          lerna version --conventional-commits --yes
+#          lerna publish from-git --yes
