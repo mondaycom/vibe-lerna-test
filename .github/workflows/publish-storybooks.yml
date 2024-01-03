@@ -52,15 +52,24 @@ jobs:
         run: |
           git config --global user.name 'ci'
           git config --global user.email 'deploy@monday.com'
-      - name: Set variable
+      - name: Picking what to deploy
         run: |
-          echo "Should deploy monday-ui-react-core Storybook: ${{ github.event.inputs.monday-ui-react-core }}"
-          echo "Should deploy monday-ui-style Storybook: ${{ github.event.inputs.monday-ui-style }}"
-          echo "Should deploy vibe-storybook-components Storybook: ${{ github.event.inputs.vibe-storybook-components }}"
-          echo "USER_INPUT=$(${{ github.event.inputs.monday-ui-react-core }} || ${{ github.event.inputs.monday-ui-style }} || ${{ github.event.inputs.vibe-storybook-components }})" >> $GITHUB_ENV
-          echo "USER_INPUT: ${{ env.USER_INPUT }}"
+          if [ ${{ github.event_name == 'workflow_dispatch' }} ]; then
+            echo "ANY_PACKAGE_SELECTED=$(${{ github.event.inputs.monday-ui-react-core }} || ${{ github.event.inputs.monday-ui-style }} || ${{ github.event.inputs.vibe-storybook-components }})" >> $GITHUB_ENV
+          else
+            echo "ANY_PACKAGE_SELECTED=false" >> $GITHUB_ENV
+          fi
+          
+          if [ ${{ env.ANY_PACKAGE_SELECTED == 'false' }} ]; then
+            echo "No package selected, deploying all..."
+          else
+            echo "Deploying only selected packages..."
+            echo "Should deploy monday-ui-react-core Storybook: ${{ github.event.inputs.monday-ui-react-core }}"
+            echo "Should deploy monday-ui-style Storybook: ${{ github.event.inputs.monday-ui-style }}"
+            echo "Should deploy vibe-storybook-components Storybook: ${{ github.event.inputs.vibe-storybook-components }}"
+          fi
       - name: Push monday-ui-react-core Storybook to Github Pages
-        if: ${{ env.USER_INPUT == 'false' }} || ${{ github.event.inputs.monday-ui-react-core == 'true' }}
+        if: ${{ env.ANY_PACKAGE_SELECTED == 'false' }} || ${{ github.event.inputs.monday-ui-react-core == 'true' }}
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           folder: "packages/monday-ui-react-core/storybook-static"
@@ -69,7 +78,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push monday-ui-style Storybook to Github Pages
-        if: ${{ env.USER_INPUT == 'false' }} || ${{ github.event.inputs.monday-ui-style == 'true' }}
+        if: ${{ env.ANY_PACKAGE_SELECTED == 'false' }} || ${{ github.event.inputs.monday-ui-style == 'true' }}
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           folder: "packages/monday-ui-style/storybook-static"
@@ -78,7 +87,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push vibe-storybook-components Storybook to Github Pages
-        if: ${{ env.USER_INPUT == 'false' }} || ${{ github.event.inputs.vibe-storybook-components == 'true' }}
+        if: ${{ env.ANY_PACKAGE_SELECTED == 'false' }} || ${{ github.event.inputs.vibe-storybook-components == 'true' }}
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           folder: "packages/vibe-storybook-components/storybook-static"
