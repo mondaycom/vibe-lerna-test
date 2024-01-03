@@ -75,7 +75,8 @@ jobs:
           git push
       - name: "Publish"
         run: |
-          lerna publish from-package --dist-tag prerelease --yes
+          lerna publish from-package --dist-tag prerelease --yes 2>&1 | tee lerna-debug.log
+#          cat lerna-debug.log
       - name: Exit if 'lerna publish' failed
         if: success() != true
         run: |
@@ -84,7 +85,7 @@ jobs:
           pwd
           ls
           echo "lerna-debug.log:"
-          cat "./lerna-debug.log"
+          cat lerna-debug.log
           exit 1
       - name: Revert Git version-changes commit
         run: |
