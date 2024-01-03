@@ -23,6 +23,11 @@ jobs:
         run: |
           yarn install --frozen-lockfile
           yarn build
+      - name: Exit if build failed
+        if: success() != true
+        run: |
+          echo "::error::build step failed - prerelease cancelled"
+          exit 1
       - name: Set up git credentials
         run: |
           git config --global user.name 'ci'
@@ -33,7 +38,6 @@ jobs:
           node scripts/get-current-package-versions.js
       - name: Set version preid
         id: set-version-preid
-        if: success()
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
           COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -41,7 +45,6 @@ jobs:
           node scripts/prerelease/get-version-preid.js
       #      - name: "Wait for tests to succeed"
       #        uses: fountainhead/action-wait-for-check@v1.1.0
-      #        if: success()
       #        id: wait-for-tests
       #        with:
       #          token: ${{ secrets.GITHUB_TOKEN }}
@@ -54,38 +57,46 @@ jobs:
       #        run: |
       #          echo "::error::test check failed - prerelease cancelled"
       #          exit 1
-      - name: "Version and publish"
-        if: success()
+      - name: "Version"
         run: |
           lerna version --conventional-commits --conventional-prerelease --preid ${{ steps.set-version-preid.outputs.version_preid }} --no-git-tag-version --no-changelog --yes
+      - name: Exit if 'lerna version' failed
+        if: success() != true
+        run: |
+          echo "::error::version step failed - prerelease cancelled"
+          exit 1
+      - name: "Commit and push version-changes"
+        run: |
           git add .
           git commit -m "Prerelease packages"
           git push
+      - name: "Publish"
+        run: |
           lerna publish from-package --dist-tag prerelease --yes
+      - name: Exit if 'lerna publish' failed
+        if: success() != true
+        run: |
+          echo "::error::publish step failed - prerelease cancelled"
+          git reset --hard HEAD~1 && git push --force
+          exit 1
+      - name: Revert Git version-changes commit
+        run: |
+          git reset --hard HEAD~1 && git push --force
       - name: Get packages versions after release
-        if: success()
         id: get-packages-versions-after-release
         run: |
           node scripts/get-current-package-versions.js
       - name: Get packages versions diff
-        if: success()
         id: get-packages-versions-diff
         env:
           PACKAGES_VERSIONS_BEFORE_RELEASE: ${{ steps.get-packages-versions-before-release.outputs.packages_versions }}
           PACKAGES_VERSIONS_AFTER_RELEASE: ${{ steps.get-packages-versions-after-release.outputs.packages_versions }}
         run: |
           node scripts/get-packages-versions-diff.js
-      - name: Revert Git prerelease commit
-        if: success()
-        run: |
-          git reset --hard HEAD~1
-          git push --force
       - name: Get current PR id
-        if: success()
         uses: 8BitJonny/gh-get-current-pr@2.2.0
         id: PR
       - name: Create comment body
-        if: success()
         id: create-comment-body
         env:
           PACKAGES_VERSIONS_DIFF: ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}
