@@ -3,7 +3,7 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["test", "build", "eslint", "stylelint", "lint"]
+        "cacheableOperations": ["test", "build", "build-storybook", "eslint", "stylelint", "lint"]
       }
     }
   },
