@@ -20,6 +20,9 @@ on:
         type: boolean
         description: "vibe-storybook-components"
 
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -35,7 +38,11 @@ jobs:
           yarn build
           yarn build-storybook
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Set up git credentials
+        run: |
+          git config --global user.name 'ci'
+          git config --global user.email 'deploy@monday.com'
       - name: "Build failed - exit"
         if: success() != true
         run: |
@@ -50,25 +57,28 @@ jobs:
           echo "USER_INPUT: ${{ env.USER_INPUT }}"
       - name: Push monday-ui-react-core Storybook to Github Pages
         if: ${{ env.USER_INPUT == 'false' }} || ${{ github.event.inputs.monday-ui-react-core == 'true' }}
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          target_branch: "gh-pages-monday-ui-react-core"
-          build_dir: "packages/monday-ui-react-core/storybook-static"
+          folder: "packages/monday-ui-react-core/storybook-static"
+          branch: "gh-pages"
+          target-folder: "monday-ui-react-core"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push monday-ui-style Storybook to Github Pages
         if: ${{ env.USER_INPUT == 'false' }} || ${{ github.event.inputs.monday-ui-style == 'true' }}
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          target_branch: "gh-pages-monday-ui-style"
-          build_dir: "packages/monday-ui-style/storybook-static"
+          folder: "packages/monday-ui-style/storybook-static"
+          branch: "gh-pages"
+          target-folder: "monday-ui-style"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Push vibe-storybook-components Storybook to Github Pages
         if: ${{ env.USER_INPUT == 'false' }} || ${{ github.event.inputs.vibe-storybook-components == 'true' }}
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          target_branch: "gh-pages-vibe-storybook-components"
-          build_dir: "packages/vibe-storybook-components/storybook-static"
+          folder: "packages/vibe-storybook-components/storybook-static"
+          branch: "gh-pages"
+          target-folder: "vibe-storybook-components"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
