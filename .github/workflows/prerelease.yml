@@ -78,15 +78,13 @@ jobs:
         run: |
           # Needed to propagate the exit code of the publish command
           set -o pipefail 
-          lerna publish from-package --dist-tag prerelease --yes | tee lerna-debug.log
+          lerna publish from-package --dist-tag prerelease --yes 2>&1 | tee lerna-debug.log
       - name: Exit if 'lerna publish' failed
         if: success() != true
         run: |
           echo "::error::publish step failed - prerelease cancelled"
           git reset --hard HEAD~1 && git push --force
-          pwd
-          ls
-          echo "\nlerna-debug.log:"
+          echo "::lerna-debug.log:"
           cat lerna-debug.log
           exit 1
       - name: Revert Git version-changes commit
