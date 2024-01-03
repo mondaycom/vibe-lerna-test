@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -81,6 +82,8 @@ jobs:
           echo "::error::publish step failed - prerelease cancelled"
           echo "lerna-debug.log:"
           cat lerna-debug.log
+          pwd
+          ls
           git reset --hard HEAD~1 && git push --force
           exit 1
       - name: Revert Git version-changes commit
