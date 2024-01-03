@@ -75,6 +75,7 @@ jobs:
           git push
       - name: "Publish"
         run: |
+          set -e
           lerna publish from-package --dist-tag prerelease --yes | tee lerna-debug.log
       - name: Exit if 'lerna publish' failed
         if: success() != true
