@@ -92,6 +92,9 @@
     "type": "git",
     "url": "git+https://github.com/mondaycom/monday-ui-react-core.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "author": "",
   "license": "MIT",
   "files": [
