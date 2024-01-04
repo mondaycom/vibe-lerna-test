@@ -30,6 +30,9 @@
     "type": "git",
     "url": "git+https://github.com/mondaycom/monday-ui-style.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "keywords": [
     "CSS",
     "THEMES"

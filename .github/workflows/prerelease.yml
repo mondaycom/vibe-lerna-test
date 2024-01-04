@@ -1,0 +1,119 @@
+name: Prerelease
+
+on:
+  - push
+  - workflow_dispatch
+
+jobs:
+  prerelease:
+    if: "github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[prerelease]')"
+    runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: https://registry.npmjs.org/
+      - name: Install and build
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+      - name: Exit if build failed
+        if: success() != true
+        run: |
+          echo "::error::build step failed - prerelease cancelled"
+          exit 1
+      - name: Set up git credentials
+        run: |
+          git config --global user.name 'ci'
+          git config --global user.email 'deploy@monday.com'
+      - name: Get packages versions before release
+        id: get-packages-versions-before-release
+        run: |
+          node scripts/get-current-package-versions.js
+      - name: Set version preid
+        id: set-version-preid
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+          COMMIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          node scripts/prerelease/get-version-preid.js
+      #      - name: "Wait for tests to succeed"
+      #        uses: fountainhead/action-wait-for-check@v1.1.0
+      #        id: wait-for-tests
+      #        with:
+      #          token: ${{ secrets.GITHUB_TOKEN }}
+      #          checkName: "test"
+      #          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      #          timeoutSeconds: 1200
+      #          intervalSeconds: 20
+      #      - name: "Tests failed - exit"
+      #        if: steps.wait-for-tests.outputs.conclusion != 'success'
+      #        run: |
+      #          echo "::error::test check failed - prerelease cancelled"
+      #          exit 1
+      - name: "Version"
+        run: |
+          lerna version --conventional-commits --conventional-prerelease --preid ${{ steps.set-version-preid.outputs.version_preid }} --no-git-tag-version --no-changelog --yes
+      - name: Exit if 'lerna version' failed
+        if: success() != true
+        run: |
+          echo "::error::version step failed - prerelease cancelled"
+          echo "lerna-debug.log:"
+          cat "./lerna-debug.log"
+          exit 1
+      - name: "Commit and push version-changes"
+        run: |
+          git add .
+          git commit -m "Prerelease packages"
+          git push
+      - name: "Publish"
+        id: publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # Needed to propagate the exit code of the publish command
+          set -o pipefail 
+          lerna publish from-package --dist-tag prerelease --registry https://registry.npmjs.org/ --yes 2>&1 | tee lerna-debug.log
+      - name: Exit if 'lerna publish' failed
+        if: success() != true
+        run: |
+          echo "::error::publish step failed - prerelease cancelled"
+          git reset --hard HEAD~1 && git push --force
+          echo "::lerna-debug.log:"
+          cat lerna-debug.log
+          exit 1
+      - name: Revert Git version-changes commit
+        run: |
+          git reset --hard HEAD~1 && git push --force
+      - name: Get packages versions after release
+        id: get-packages-versions-after-release
+        run: |
+          node scripts/get-current-package-versions.js
+      - name: Get packages versions diff
+        id: get-packages-versions-diff
+        env:
+          PACKAGES_VERSIONS_BEFORE_RELEASE: ${{ steps.get-packages-versions-before-release.outputs.packages_versions }}
+          PACKAGES_VERSIONS_AFTER_RELEASE: ${{ steps.get-packages-versions-after-release.outputs.packages_versions }}
+        run: |
+          node scripts/get-packages-versions-diff.js
+      - name: Get current PR id
+        uses: 8BitJonny/gh-get-current-pr@2.2.0
+        id: PR
+      - name: Create comment body
+        id: create-comment-body
+        env:
+          PACKAGES_VERSIONS_DIFF: ${{ steps.get-packages-versions-diff.outputs.packages_versions_diff }}
+        run: |
+          node scripts/prerelease/create-prerelease-comment-body.js
+      - name: Create comment with prerelease version details
+        if: success()
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ steps.PR.outputs.number }}
+          body: ${{ fromJSON(steps.create-comment-body.outputs.comment_body) }}

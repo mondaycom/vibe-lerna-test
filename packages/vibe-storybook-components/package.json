@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git@github.com:mondaycom/vibe-storybook-components.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "sideEffects": [
     "*.scss",
     "*.css"
